@@ -249,6 +249,8 @@ CREATE TABLE ServicePackagePlanStep (
     FOREIGN KEY(DoctorId) REFERENCES Doctor(Id),
 );
 
+CREATE TABLE 
+
 -- 15. Các bước bổ sung trong các bước của lịch trình điều trị cố định
 CREATE TABLE ServicePackageStepExtension (
     Id UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
