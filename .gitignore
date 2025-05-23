@@ -6,7 +6,7 @@
 *.user
 *.suo
 *.userosscache
-*.sln.docstates
+*.sln
 .vs/
 
 # -------------------------
