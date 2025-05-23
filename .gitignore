@@ -1,0 +1,24 @@
+# --- ASP.NET Core / Visual Studio ---
+.vs/
+bin/
+obj/
+*.user
+*.suo
+appsettings.Development.json
+
+# --- Node.js / React / Vite ---
+node_modules/
+dist/
+build/
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# --- System files ---
+.DS_Store
+Thumbs.db
+
+# --- Logs ---
+*.log
