@@ -42,7 +42,7 @@ public class Program
                     new string[]{}
                 }
             });
-        });
+        }); // http:localhost:8080/swagger/index.html => hi?n các api d??i d?ng UI hoàn toàn có th? t??ng tác test API == Postman
 
         builder.Services.AddCors(
             options =>
