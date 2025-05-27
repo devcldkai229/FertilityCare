@@ -7,13 +7,9 @@ using System.Threading.Tasks;
 
 namespace FertilityCare.Domain.Interfaces.Repositoires;
 
-public interface IFeedbackRepository : IBaseRepository<Feedback>
+public interface IFeedbackRepository : IBaseRepository<Feedback,Guid>
 {
     Task<IEnumerable<Feedback>> GetByPatientIdAsync(Guid patientId);
     Task<IEnumerable<Feedback>> GetByDoctorIdAsync(Guid doctorId);
     Task<IEnumerable<Feedback>> GetByPlanIdAsync(Guid planId);
-    Task<IEnumerable<Feedback>> GetDisplayedFeedbackAsync();
-    Task<IEnumerable<Feedback>> GetPendingFeedbackAsync();
-    Task<decimal> GetAverageRatingAsync(Guid doctorId);
-    Task<IEnumerable<Feedback>> GetTopRatedFeedbackAsync(int count);
 }
