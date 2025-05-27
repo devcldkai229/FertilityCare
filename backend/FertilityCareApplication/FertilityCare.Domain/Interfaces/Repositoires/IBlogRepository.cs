@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace FertilityCare.Domain.Interfaces.Repositoires;
 
-public interface IBlogRepository : IBaseRepository<Blog>
+public interface IBlogRepository : IBaseRepository<Blog, long>
 {
-    Task<Blog> GetBySlugAsync(string slug);
-    Task<IEnumerable<Blog>> GetPublishedAsync();
     Task<IEnumerable<Blog>> GetByAuthorAsync(Guid authorId);
-    Task<IEnumerable<Blog>> GetMostViewedAsync(int count);
+
 }
