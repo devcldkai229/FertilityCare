@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 
 namespace FertilityCare.Domain.Interfaces.Repositoires;
 
-public interface IPaymentMethodRepository : IBaseRepository<PaymentMethod>  
+public interface IPaymentMethodRepository : IBaseRepository<PaymentMethod,Guid>  
 {
 }
