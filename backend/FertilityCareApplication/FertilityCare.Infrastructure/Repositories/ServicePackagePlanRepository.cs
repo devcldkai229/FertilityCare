@@ -24,7 +24,6 @@ namespace FertilityCare.Infrastructure.Repositories
 
         public async Task<ServicePackagePlan> CreateAsync(ServicePackagePlan entity)
         {
-            
             await _context.ServicePackagePlans.AddAsync(entity);
             await _context.SaveChangesAsync();
             return entity;
