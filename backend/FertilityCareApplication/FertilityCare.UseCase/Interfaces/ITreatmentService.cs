@@ -13,5 +13,7 @@ namespace FertilityCare.UseCase.Interfaces
 
         Task<IEnumerable<TreatmentServiceDTO>> GetAllAsync();
 
+        Task<TreatmentServiceDTO> CreateAsync(CreateTreatmentServiceRequestDTO request);
+
     }
 }

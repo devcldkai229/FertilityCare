@@ -104,5 +104,35 @@ namespace FertilityCare.API.Controllers
             }
         }
 
+        [HttpPost]
+        [ProducesResponseType(typeof(ApiResponse<TreatmentServiceDTO>), 200)]
+        [ProducesResponseType(typeof(ApiResponse<object>), 404)]
+        public async Task<ActionResult<ApiResponse<TreatmentServiceDTO>>> Create([FromBody] CreateTreatmentServiceRequestDTO request)
+        {
+            try
+            {
+                var result = await _treatmentService.CreateAsync(request);
+
+                return CreatedAtAction(nameof(GetById), new { id = result.Id },
+                    new ApiResponse<TreatmentServiceDTO>
+                    {
+                        StatusCode = 201,
+                        Message = "Created Successful!",
+                        Data = result,
+                        ResponsedAt = DateTime.Now
+                    });
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound(new ApiResponse<object>
+                {
+                    StatusCode = 404,
+                    Message = e.Message,
+                    Data = null,
+                    ResponsedAt = DateTime.UtcNow
+                });
+            }
+        }
+
     }
 }

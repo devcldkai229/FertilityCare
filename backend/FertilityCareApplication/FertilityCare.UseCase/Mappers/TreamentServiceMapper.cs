@@ -32,7 +32,24 @@ namespace FertilityCare.UseCase.Mappers
                 Contraindications = model.Contraindications,
                 CreatedAt = model.CreatedAt.ToString("dd/MM/yyyy HH:mm:ss"),
                 UpdateAt = model.UpdatedAt?.ToString("dd/MM/yyyy HH:mm:ss"),
-                TreamentSteps = model.TreatmentSteps.Select(x => x.MapToTreatmentStepDTO()).ToList()
+                TreamentSteps = model.TreatmentSteps?.Select(x => x.MapToTreatmentStepDTO()).ToList()
+            };
+        }
+
+        public static TreatmentService MapToTreatmentServiceModel(this CreateTreatmentServiceRequestDTO request)
+        {
+            return new TreatmentService
+            {
+                TreamentCategoryId = Guid.Parse(request.CategoryId),
+                Name = request.ServiceName,
+                Description = request.Description,
+                BasicPrice = request.BasicPrice,
+                Duration = request.Duration,
+                SuccessRate = request.SucessRate,
+                MinAge = request.MinAge,
+                MaxAge = request.MaxAge,
+                RecommendedFor = request.RecommendedFor,
+                Contraindications = request.Contraindications,
             };
         }
 

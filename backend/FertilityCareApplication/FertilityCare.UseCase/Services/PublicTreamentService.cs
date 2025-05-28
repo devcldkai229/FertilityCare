@@ -1,4 +1,5 @@
-﻿using FertilityCare.Domain.Interfaces.Repositoires;
+﻿using FertilityCare.Domain.Entities;
+using FertilityCare.Domain.Interfaces.Repositoires;
 using FertilityCare.UseCase.DTOs.TreatmentServices;
 using FertilityCare.UseCase.Interfaces;
 using FertilityCare.UseCase.Mappers;
@@ -15,9 +16,27 @@ namespace FertilityCare.UseCase.Services
 
         private readonly ITreatmentServiceRepository _treamentServiceRepository;
 
-        public PublicTreamentService(ITreatmentServiceRepository treamentServiceRepository)
+        private readonly ITreatmentCategoryRepository _treatmentCategoryRepository;
+
+        public PublicTreamentService(ITreatmentServiceRepository treamentServiceRepository, ITreatmentCategoryRepository treatmentCategoryRepository)
         {
             _treamentServiceRepository = treamentServiceRepository;
+            _treatmentCategoryRepository = treatmentCategoryRepository;
+        }
+
+        public async Task<TreatmentServiceDTO> CreateAsync(CreateTreatmentServiceRequestDTO request)
+        {
+            var treatmentModel = request.MapToTreatmentServiceModel(); 
+            var existCategory = await _treatmentCategoryRepository.GetByIdAsync(treatmentModel.TreamentCategoryId);
+
+            treatmentModel.TreamentCategory = existCategory;
+            treatmentModel.TreatmentSteps = new List<TreatmentStep>();
+            treatmentModel.CreatedAt = DateTime.Now;
+            treatmentModel.IsActive = true;
+            treatmentModel.UpdatedAt = null;
+            
+            await _treamentServiceRepository.CreateAsync(treatmentModel);
+            return treatmentModel.MapToTreamentServiceDTO();
         }
 
         public async Task<IEnumerable<TreatmentServiceDTO>> GetAllAsync()
