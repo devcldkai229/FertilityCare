@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FertilityCare.Domain.Interfaces.Repositoires;
 
-public interface ITreatmentProgressReportRepository : IBaseRepository<TreatmentProgressReport>
+public interface ITreatmentProgressReportRepository : IBaseRepository<TreatmentProgressReport, Guid>
 {
     Task<IEnumerable<TreatmentProgressReport>> GetByPlanIdAsync(Guid planId);
     Task<IEnumerable<TreatmentProgressReport>> GetByDoctorIdAsync(Guid doctorId);

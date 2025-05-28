@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FertilityCare.Domain.Interfaces.Repositoires;
 
-public interface IMonitorReminderRepository : IBaseRepository<MonitorReminder>
+public interface IMonitorReminderRepository : IBaseRepository<MonitorReminder, long>
 {
     Task<IEnumerable<MonitorReminder>> GetByPatientIdAsync(Guid patientId);
     Task<IEnumerable<MonitorReminder>> GetByPlanIdAsync(Guid planId);

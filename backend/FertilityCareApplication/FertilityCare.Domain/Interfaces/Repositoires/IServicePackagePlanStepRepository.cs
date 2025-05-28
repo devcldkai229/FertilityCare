@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FertilityCare.Domain.Interfaces.Repositoires;
 
-public interface IServicePackagePlanStepRepository : IBaseRepository<ServicePackagePlan>
+public interface IServicePackagePlanStepRepository : IBaseRepository<ServicePackagePlan, Guid>
 {
     Task<IEnumerable<ServicePackagePlanStep>> GetByPlanIdAsync(Guid planId);
     Task<IEnumerable<ServicePackagePlanStep>> GetPendingStepsAsync(Guid planId);

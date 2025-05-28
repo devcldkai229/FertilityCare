@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FertilityCare.Domain.Interfaces.Repositoires;
 
-public interface ITestResultRepository : IBaseRepository<TestResult>
+public interface ITestResultRepository : IBaseRepository<TestResult, long>
 {
     Task<IEnumerable<TestResult>> GetByPlanIdAsync(Guid planId);
     Task<IEnumerable<TestResult>> GetByDateRangeAsync(Guid planId, DateTime startDate, DateTime endDate);

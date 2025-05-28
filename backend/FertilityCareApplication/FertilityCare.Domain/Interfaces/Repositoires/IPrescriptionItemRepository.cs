@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FertilityCare.Domain.Interfaces.Repositoires;
 
-public interface IPrescriptionItemRepository : IBaseRepository<PrescriptionItem>
+public interface IPrescriptionItemRepository : IBaseRepository<PrescriptionItem, long>
 {
     Task<IEnumerable<PrescriptionItem>> GetByPrescriptionIdAsync(Guid prescriptionId);
 }

@@ -1,8 +1,8 @@
 ﻿using FertilityCare.Domain.Constant;
+using FertilityCare.Domain.DTOs;
 using FertilityCare.Domain.Entities;
 using FertilityCare.Domain.Interfaces.Repositoires;
 using FertilityCare.Infrastructure.Data;
-using FertilityCare.UseCase.DTOs;
 using FertilityCare.UseCase.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
