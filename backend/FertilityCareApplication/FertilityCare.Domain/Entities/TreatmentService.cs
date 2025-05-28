@@ -40,4 +40,24 @@ public class TreatmentService
 
     public virtual List<TreatmentStep> TreatmentSteps { get; set; }
 
+    public override string ToString()
+    {
+        return $"TreatmentService: Id={Id}, " +
+               $"TreamentCategoryId={TreamentCategoryId}, " +
+               $"Name={Name}, " +
+               $"Description={Description ?? "N/A"}, " +
+               $"BasicPrice={BasicPrice}, " +
+               $"Duration={(Duration.HasValue ? Duration.Value.ToString() : "N/A")}, " +
+               $"IsActive={IsActive}, " +
+               $"SuccessRate={(SuccessRate.HasValue ? SuccessRate.Value.ToString() : "N/A")}, " +
+               $"MinAge={(MinAge.HasValue ? MinAge.Value.ToString() : "N/A")}, " +
+               $"MaxAge={(MaxAge.HasValue ? MaxAge.Value.ToString() : "N/A")}, " +
+               $"RecommendedFor={RecommendedFor ?? "N/A"}, " +
+               $"Contraindications={Contraindications ?? "N/A"}, " +
+               $"CreatedAt={CreatedAt}, " +
+               $"UpdatedAt={(UpdatedAt.HasValue ? UpdatedAt.Value.ToString() : "N/A")}, " +
+               $"TreatmentStepsCount={TreatmentSteps?.Count ?? 0}";
+    }
+
+
 }

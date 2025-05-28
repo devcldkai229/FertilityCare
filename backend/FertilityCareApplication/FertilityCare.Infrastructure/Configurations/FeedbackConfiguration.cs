@@ -34,10 +34,6 @@ public class FeedbackConfiguration : IEntityTypeConfiguration<Feedback>
         builder.Property(f => f.IsDisplayed)
                .HasDefaultValue(false);
 
-        builder.Property(f => f.Status)
-               .HasConversion<int>()
-               .HasDefaultValue((int)FeedbackStatus.Approved);
-
         builder.Property(f => f.CreatedAt)
                .HasDefaultValueSql("GETDATE()");
 

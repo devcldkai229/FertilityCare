@@ -24,17 +24,7 @@ public class ServicePackagePlanConfiguration : IEntityTypeConfiguration<ServiceP
 
         builder.Property(x => x.EndDate).HasColumnType("DATE");
 
-        builder.Property(x => x.Status)
-            .HasConversion<int>()
-            .HasColumnType("INT")
-            .HasDefaultValue((int)SerrvicePlanStatus.Planned);
-
         builder.Property(x => x.TotalCost).HasColumnType("DECIMAL(18,2)");
-
-        builder.Property(x => x.PaymentStatus)
-            .HasConversion<int>()
-            .HasColumnType("INT")
-            .HasDefaultValue((int)PaymentStatus.Pending);
 
         builder.Property(x => x.Note).HasColumnType("NTEXT");
 
@@ -43,7 +33,7 @@ public class ServicePackagePlanConfiguration : IEntityTypeConfiguration<ServiceP
         builder.HasOne(x => x.Patient)
             .WithMany()
             .HasForeignKey(x => x.PatientId)
-            .OnDelete(DeleteBehavior.NoAction)
+            .OnDelete(DeleteBehavior.Cascade)
             .HasConstraintName("FK_ServicePackagePlan_Patient");
 
         builder.HasOne(x => x.Doctor)

@@ -26,11 +26,6 @@ public class ServicePackagePlanStepConfiguration : IEntityTypeConfiguration<Serv
 
         builder.Property(x => x.CompletedAt).HasColumnType("DATETIME");
 
-        builder.Property(x => x.Status)
-            .HasConversion<int>()
-            .HasColumnType("INT")
-            .HasDefaultValue((int)ServicePlanStepStatus.Pending);
-
         builder.Property(x => x.Note).HasColumnType("NTEXT");
 
         builder.Property(x => x.IsComplete).HasDefaultValue(false);

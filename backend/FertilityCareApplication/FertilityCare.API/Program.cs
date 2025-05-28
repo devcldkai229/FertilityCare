@@ -1,5 +1,10 @@
 using FertilityCare.API.Converter;
-using Microsoft.AspNetCore.Http.Json;
+using FertilityCare.Domain.Interfaces.Repositoires;
+using FertilityCare.Infrastructure.Data;
+using FertilityCare.Infrastructure.Repositories;
+using FertilityCare.UseCase.Interfaces;
+using FertilityCare.UseCase.Services;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 namespace FertilityCare.API;
@@ -42,7 +47,7 @@ public class Program
                     new string[]{}
                 }
             });
-        }); // http:localhost:8080/swagger/index.html => hi?n các api d??i d?ng UI hoàn toàn có th? t??ng tác test API == Postman
+        }); 
 
         builder.Services.AddCors(
             options =>
@@ -74,6 +79,18 @@ public class Program
                 options.SerializerSettings.Converters.Add(new TimeOnlyJsonConverter());
             }
         );
+
+        builder.Services.AddDbContext<FertilityCareDBContext>(options =>
+        {
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            options.UseLazyLoadingProxies();
+        });
+
+
+        builder.Services.AddScoped<ITreatmentCategoryRepository, TreatmentCategoryRepository>();
+        builder.Services.AddScoped<ITreatmentServiceRepository, TreatmentServiceRepository>();
+        builder.Services.AddScoped<ITreatmentService, PublicTreamentService>();
+
 
         var app = builder.Build();
 

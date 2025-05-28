@@ -27,7 +27,7 @@ public class PaymentConfiguration : IEntityTypeConfiguration<Payment>
 
         builder.Property(e => e.Status).HasMaxLength(100).IsRequired();
 
-        builder.Property(e => e.RefundAmount).HasColumnType("DECIMAL(18,2)").HasDefaultValue(0);
+        builder.Property(e => e.RefundAmount).HasColumnType("DECIMAL(18,2)");
 
         builder.Property(e => e.RefundReason).HasColumnType("NVARCHAR(MAX)");
 

@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,15 +16,21 @@ namespace FertilityCare.Infrastructure.Data;
 public class FertilityCareDBContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
 {
 
-    private static readonly string DB_CONNECTION_STRING = "Server=localhost,1433;Database=FeritilyCareDB;User Id=sa;Password=12345;TrustServerCertificate=True;Encrypt=false";   
+    private static readonly string DB_CONNECTION_STRING = "Server=localhost,1433;Database=FertilityCareDB;UID=sa;PWD=12345;TrustServerCertificate=True;Encrypt=false";
 
-    private static readonly ILoggerFactory _logger = LoggerFactory.Create(
-        options =>
-        {
-            options.AddFilter(DbLoggerCategory.Query.Name, LogLevel.Information)
-            .AddConsole();
-        }
-    ); 
+
+    //private static readonly ILoggerFactory _logger = LoggerFactory.Create(
+    //    options =>
+    //    {
+    //        options.AddFilter(DbLoggerCategory.Query.Name, LogLevel.Information)
+    //        .AddConsole();
+    //    }
+    //);
+
+    //public FertilityCareDBContext(DbContextOptions<FertilityCareDBContext> options)
+    //   : base(options)
+    //{
+    //}
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -33,7 +40,12 @@ public class FertilityCareDBContext : IdentityDbContext<ApplicationUser, Identit
 
         optionsBuilder.UseLazyLoadingProxies();
 
-        optionsBuilder.UseLoggerFactory(_logger);
+    }
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+        builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 
     public DbSet<UserProfile> UserProfiles { get; set; }

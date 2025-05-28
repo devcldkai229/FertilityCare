@@ -24,10 +24,6 @@ internal class PrescriptionConfiguration : IEntityTypeConfiguration<Prescription
 
         builder.Property(x => x.Note).HasColumnType("NTEXT");
 
-        builder.Property(x => x.Status)
-            .HasConversion<int>()
-            .HasDefaultValue((int)PrescriptionStatus.Active);
-
         builder.HasOne<ServicePackagePlan>()
             .WithMany()
             .HasForeignKey(x => x.ServicePackagePlanId)

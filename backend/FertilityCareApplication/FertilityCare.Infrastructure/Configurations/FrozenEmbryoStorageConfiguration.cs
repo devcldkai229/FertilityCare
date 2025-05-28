@@ -22,15 +22,6 @@ public class FrozenEmbryoStorageConfiguration : IEntityTypeConfiguration<FrozenE
 
         builder.Property(e => e.StorageTank).HasMaxLength(50).IsRequired();
 
-        builder.Property(e => e.FreezeMethod)
-               .HasConversion<int>()
-               .HasColumnType("INT");
-
-        builder.Property(e => e.Status)
-               .HasConversion<int>()
-               .HasColumnType("INT")
-               .HasDefaultValue((int)FrozenEmbryoStorageStatus.Active);
-
         builder.Property(e => e.CreatedAt).HasDefaultValueSql("GETDATE()");
 
         builder.HasOne(e => e.EmbryoDetail)

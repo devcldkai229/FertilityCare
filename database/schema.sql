@@ -1,6 +1,7 @@
 ﻿CREATE DATABASE FeritilyCareDB
+CREATE DATABASE FertilityCareDB
 
-USE FeritilyCareDB
+USE FertilityCareDB
 
 DROP DATABASE FeritilyCareDB
 

@@ -20,16 +20,6 @@ public class MonitorReminderConfiguration : IEntityTypeConfiguration<MonitorRemi
 
         builder.Property(mr => mr.Id).UseIdentityColumn(1000, 1);
 
-        builder.Property(mr => mr.ReminderType)
-            .HasConversion<int>()
-            .HasColumnType("INT")
-            .HasDefaultValue((int)MonitorReminderType.Treatment);
-
-        builder.Property(mr => mr.RecurrencePattern)
-            .HasConversion<int>()
-            .HasColumnType("INT")
-            .HasDefaultValue((int)RecurrencePatternType.ThisTimeOnly);
-
         builder.Property(mr => mr.Title).HasColumnType("NVARCHAR(255)").IsRequired(false);
 
         builder.Property(mr => mr.Description).HasColumnType("NTEXT");

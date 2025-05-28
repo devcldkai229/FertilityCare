@@ -19,7 +19,7 @@ public class PatientPartnerConfiguration : IEntityTypeConfiguration<PatientPartn
 
         builder.Property(p => p.Id).HasDefaultValueSql("NEWID()");
 
-        builder.Property(p => p.FullName).HasColumnType("NVARCHAR(500").IsRequired();
+        builder.Property(p => p.FullName).HasColumnType("NVARCHAR(500)").IsRequired();
 
         builder.Property(p => p.BloodType).HasColumnType("NVARCHAR(20)");
 

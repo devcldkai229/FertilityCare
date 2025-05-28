@@ -13,11 +13,12 @@ namespace FertilityCare.API.Controllers
 
         private readonly ITreatmentService _treatmentService;
 
-        private readonly ILogger _logger;
+        private readonly ILogger<TreamentController> _logger;
 
-        public TreamentController(ITreatmentService treatmentService)
+        public TreamentController(ITreatmentService treatmentService, ILogger<TreamentController> logger)
         {
-            _treatmentService = treatmentService;   
+            _treatmentService = treatmentService;
+            _logger = logger;
         }
 
         [HttpGet]

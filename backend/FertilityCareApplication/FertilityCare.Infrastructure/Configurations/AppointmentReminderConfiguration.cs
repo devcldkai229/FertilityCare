@@ -32,11 +32,6 @@ public class AppointmentReminderConfiguration : IEntityTypeConfiguration<Appoint
 
         builder.Property(x => x.SentAt).HasColumnType("DATETIME");
 
-        builder.Property(x => x.Status)
-            .HasColumnType("INT")
-            .HasConversion<int>() 
-            .HasDefaultValue((int)AppointmentReminderStatus.Pending);
-
         builder.Property(x => x.Note).HasColumnType("NTEXT");
 
         builder.Property(x => x.CreatedAt).HasColumnType("DATETIME").HasDefaultValueSql("GETDATE()");

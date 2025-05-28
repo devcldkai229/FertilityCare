@@ -24,11 +24,6 @@ public class EmbryoDetailConfiguration : IEntityTypeConfiguration<EmbryoDetail>
 
         builder.Property(e => e.IsViable).HasDefaultValue(true);
 
-        builder.Property(e => e.Status)
-               .HasConversion<int>()
-               .HasColumnType("INT")
-               .HasDefaultValue((int)EmbryoStatus.Available);
-
         builder.Property(e => e.CreatedAt).HasDefaultValueSql("GETDATE()");
 
         builder.HasOne<EmbryoFertilization>()

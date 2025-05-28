@@ -40,11 +40,6 @@ public class BlogConfiguration : IEntityTypeConfiguration<Blog>
 
         builder.Property(b => b.MetaDescription).HasColumnType("nvarchar(max)");
 
-        builder.Property(b => b.Status)
-               .HasConversion<int>()
-               .HasColumnType("INT")
-               .HasDefaultValue((int)BlogStatus.Published);
-
         builder.Property(b => b.ViewCount).HasDefaultValue(0);
     }
 }

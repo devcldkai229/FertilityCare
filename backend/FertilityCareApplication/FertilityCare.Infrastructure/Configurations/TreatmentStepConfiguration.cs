@@ -18,9 +18,7 @@ public class TreatmentStepConfiguration : IEntityTypeConfiguration<TreatmentStep
 
         builder.HasKey(t => t.Id);
 
-        builder.Property(t => t.Id).UseIdentityColumn(1000, 1);
-
-        builder.Property(t => t.Id).HasDefaultValueSql("NEWID()");
+        builder.Property(t => t.Id).UseIdentityColumn(1000,1);
 
         builder.Property(t => t.StepName).HasDefaultValue("NVARCHAR(255)").IsRequired();
 

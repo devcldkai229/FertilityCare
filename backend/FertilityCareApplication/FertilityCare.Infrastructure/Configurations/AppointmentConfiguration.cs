@@ -22,10 +22,6 @@ public class AppointmentConfiguration : IEntityTypeConfiguration<Appointment>
 
         builder.Property(x => x.EndTime).HasColumnType("TIME");
 
-        builder.Property(x => x.Status)
-            .HasConversion<int>()
-            .HasDefaultValue((int)AppointmentStatus.Scheduled);
-
         builder.Property(x => x.Note).HasColumnType("NTEXT");
 
         builder.Property(x => x.CreatedAt).HasDefaultValueSql("GETDATE()");
@@ -33,7 +29,7 @@ public class AppointmentConfiguration : IEntityTypeConfiguration<Appointment>
         builder.HasOne<Patient>()
             .WithMany()
             .HasForeignKey(x => x.PatientId)
-            .OnDelete(DeleteBehavior.NoAction)
+            .OnDelete(DeleteBehavior.Cascade)
             .HasConstraintName("FK_Appointment_Patient");
 
         builder.HasOne<Doctor>()
