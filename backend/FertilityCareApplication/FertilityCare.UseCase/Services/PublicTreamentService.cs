@@ -20,13 +20,13 @@ namespace FertilityCare.UseCase.Services
             _treamentServiceRepository = treamentServiceRepository;
         }
 
-        public async Task<IEnumerable<TreatmentServiceDTO>> GetAll()
+        public async Task<IEnumerable<TreatmentServiceDTO>> GetAllAsync()
         {
             var result = await _treamentServiceRepository.GetAllAsync(); 
             return result.Select(x => x.MapToTreamentServiceDTO()).ToList();
         }
 
-        public async Task<TreatmentServiceDTO> GetById(Guid Id)
+        public async Task<TreatmentServiceDTO> GetByIdAsync(Guid Id)
         {
            var loadedTreament = await _treamentServiceRepository.GetByIdAsync(Id);
            return loadedTreament.MapToTreamentServiceDTO();

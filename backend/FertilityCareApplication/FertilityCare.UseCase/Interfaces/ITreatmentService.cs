@@ -9,9 +9,9 @@ namespace FertilityCare.UseCase.Interfaces
 {
     public interface ITreatmentService
     {
-        Task<TreatmentServiceDTO> GetById(Guid Id);
+        Task<TreatmentServiceDTO> GetByIdAsync(Guid Id);
 
-        Task<IEnumerable<TreatmentServiceDTO>> GetAll();
+        Task<IEnumerable<TreatmentServiceDTO>> GetAllAsync();
 
     }
 }
