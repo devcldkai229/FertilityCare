@@ -24,7 +24,7 @@ namespace FertilityCare.Infrastructure.Repositories
 
         public async Task<ServicePackagePlan> CreateAsync(ServicePackagePlan entity)
         {
-            entity.CreatedAt = DateTime.UtcNow;
+            
             await _context.ServicePackagePlans.AddAsync(entity);
             await _context.SaveChangesAsync();
             return entity;
@@ -67,7 +67,7 @@ namespace FertilityCare.Infrastructure.Repositories
 
         public async Task<ServicePackagePlan> UpdateAsync(ServicePackagePlan entity)
         {
-            entity.UpdatedAt = DateTime.UtcNow;
+            
             _context.ServicePackagePlans.Update(entity);
             await _context.SaveChangesAsync();
             return entity;
