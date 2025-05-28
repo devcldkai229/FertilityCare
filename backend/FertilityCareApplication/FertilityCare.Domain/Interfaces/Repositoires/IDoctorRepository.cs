@@ -1,5 +1,5 @@
-﻿using FertilityCare.Domain.Entities;
-using FertilityCare.UseCase.DTOs;
+﻿using FertilityCare.Domain.DTOs;
+using FertilityCare.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

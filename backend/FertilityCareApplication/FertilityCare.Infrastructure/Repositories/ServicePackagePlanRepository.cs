@@ -46,6 +46,10 @@ namespace FertilityCare.Infrastructure.Repositories
             return await _context.ServicePackagePlans.AnyAsync(x => x.Id == id);
         }
 
+        public Task<int> GetActivePlansCountAsync()
+        {
+            throw new NotImplementedException();
+        }
 
         public async Task<IEnumerable<ServicePackagePlan>> GetAllAsync()
         {

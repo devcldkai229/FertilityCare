@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FertilityCare.Domain.Interfaces.Repositoires;
 
-public interface IMediaFilesRepository : IBaseRepository<MediaFile>    
+public interface IMediaFilesRepository : IBaseRepository<MediaFile, Guid>    
 {
     Task<IEnumerable<MediaFile>> GetByOwnerIdAsync(Guid ownerId);
     Task<IEnumerable<MediaFile>> GetByFileTypeAsync(string fileType);

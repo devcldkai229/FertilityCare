@@ -66,11 +66,11 @@ namespace FertilityCare.Infrastructure.Repositories
             return loadedStep;
         }
 
-        public Task<TreatmentStep> UpdateAsync(TreatmentStep entity)
+        public async Task<TreatmentStep> UpdateAsync(TreatmentStep entity)
         {
             _context.TreatmentSteps.Update(entity);
-            _context.SaveChangesAsync();
-            return Task.FromResult(entity);
+            await _context.SaveChangesAsync();
+            return entity;
         }
     }
 }

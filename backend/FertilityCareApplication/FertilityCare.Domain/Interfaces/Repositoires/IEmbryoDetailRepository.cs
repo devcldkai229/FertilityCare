@@ -7,12 +7,9 @@ using System.Threading.Tasks;
 
 namespace FertilityCare.Domain.Interfaces.Repositoires;
 
-public interface IEmbryoDetailRepository : IBaseRepository<EmbryoDetail>
+public interface IEmbryoDetailRepository : IBaseRepository<EmbryoDetail, Guid>
 {
     Task<IEnumerable<EmbryoDetail>> GetByFertilizationIdAsync(Guid fertilizationId);
-    Task<bool> UpdateStatusAsync(Guid id, string status);
-    Task<IEnumerable<EmbryoDetail>> GetViableEmbryosAsync(Guid fertilizationId);
     Task<IEnumerable<EmbryoDetail>> GetByStatusAsync(string status);
     Task<IEnumerable<EmbryoDetail>> GetByGradeAsync(string grade);
-    Task<int> GetViableEmbryoCountAsync(Guid fertilizationId);
 }

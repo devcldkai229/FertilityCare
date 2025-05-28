@@ -24,7 +24,7 @@ public class TreatmentService
 
     public bool IsActive { get; set; }
 
-    public decimal SuccessRate { get; set; }
+    public decimal? SuccessRate { get; set; }
 
     public int? MinAge { get; set; }
 

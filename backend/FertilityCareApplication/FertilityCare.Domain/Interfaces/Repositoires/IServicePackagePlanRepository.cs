@@ -12,7 +12,4 @@ public interface IServicePackagePlanRepository : IBaseRepository<ServicePackageP
     
     Task<bool> UpdateStatusAsync(Guid id, string status);
     Task<bool> UpdatePaymentStatusAsync(Guid id, string paymentStatus);
-    
-    
-    
 }
