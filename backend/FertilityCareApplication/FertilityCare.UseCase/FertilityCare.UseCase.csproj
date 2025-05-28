@@ -8,11 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="DTOs\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Mappers\" />
     <Folder Include="Query\" />
-    <Folder Include="Validators\" />
     <Folder Include="Services\" />
+    <Folder Include="Validators\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FertilityCare.Domain\FertilityCare.Domain.csproj" />
   </ItemGroup>
 
 </Project>
