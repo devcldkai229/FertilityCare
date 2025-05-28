@@ -12,7 +12,7 @@ using Microsoft.VisualBasic;
 
 namespace FertilityCare.Infrastructure.Repositories
 {
-    internal class BlogRepository : IBlogRepository
+    public class BlogRepository : IBlogRepository
     {
         private readonly FertilityCareDBContext _context;
         public BlogRepository(FertilityCareDBContext context)
@@ -22,7 +22,7 @@ namespace FertilityCare.Infrastructure.Repositories
 
         public async Task<Blog> CreateAsync(Blog entity)
         {
-            await _context.AddAsync(entity);
+            await _context.Blogs.AddAsync(entity);
             await _context.SaveChangesAsync();
             return entity;
         }
@@ -34,7 +34,7 @@ namespace FertilityCare.Infrastructure.Repositories
             {
                 throw new NotFoundException($"Blog id:{id} not exits!");
             }
-            _context.Remove(loadBlog);
+            _context.Blogs.Remove(loadBlog);
             await _context.SaveChangesAsync();
         }
 

@@ -23,7 +23,7 @@ namespace FertilityCare.Infrastructure.Repositories
 
         public async Task<Payment> CreateAsync(Payment entity)
         {
-            await _context.AddAsync(entity);
+            await _context.Payments.AddAsync(entity);
             await _context.SaveChangesAsync();
             return entity;
         }

@@ -20,7 +20,7 @@ namespace FertilityCare.Infrastructure.Repositories
         }
         public async Task<Feedback> CreateAsync(Feedback entity)
         {
-            await _context.AddAsync(entity);
+            await _context.Feedbacks.AddAsync(entity);
             await _context.SaveChangesAsync();
             return entity;
         }
