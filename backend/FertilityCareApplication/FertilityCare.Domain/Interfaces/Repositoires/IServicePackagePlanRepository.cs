@@ -14,5 +14,5 @@ public interface IServicePackagePlanRepository : IBaseRepository<ServicePackageP
     Task<bool> UpdatePaymentStatusAsync(Guid id, string paymentStatus);
     
     
-    Task<int> GetActivePlansCountAsync();
+    
 }
