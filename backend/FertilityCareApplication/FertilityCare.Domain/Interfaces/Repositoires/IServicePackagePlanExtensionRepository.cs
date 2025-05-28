@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FertilityCare.Domain.Interfaces.Repositoires;
 
-public interface IServicePackagePlanExtensionRepository : IBaseRepository<ServicePackagePlanExtension>
+public interface IServicePackagePlanExtensionRepository : IBaseRepository<ServicePackagePlanExtension, long>
 {
     Task<IEnumerable<ServicePackagePlanExtension>> GetByPlanIdAsync(Guid planId);
     Task<bool> CompleteExtensionAsync(Guid id);

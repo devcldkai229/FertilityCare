@@ -340,7 +340,7 @@ CREATE TABLE MediaFile (
 -- 22. Feedback từ user, patient
 CREATE TABLE Feedback (
     Id UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
-    UserProfileId UNIQUEIDENTIFIER,
+    PatientId UNIQUEIDENTIFIER,
     DoctorId UNIQUEIDENTIFIER,
     ServicePackagePlanId UNIQUEIDENTIFIER,
     Rating DECIMAL(3,1) CHECK (Rating BETWEEN 1 AND 5),
@@ -351,7 +351,7 @@ CREATE TABLE Feedback (
     Status INT DEFAULT 2, -- Pending, Approved, Rejected
     CreatedAt DATETIME DEFAULT GETDATE(),
     UpdatedAt DATETIME,
-    FOREIGN KEY(UserProfileId) REFERENCES UserProfile(Id),
+    FOREIGN KEY(PatientId) REFERENCES Patient(Id),
     FOREIGN KEY(DoctorId) REFERENCES Doctor(Id),
     FOREIGN KEY(ServicePackagePlanId) REFERENCES ServicePackagePlan(Id)
 );
@@ -427,10 +427,25 @@ CREATE TABLE FrozenEmbryoStorage (
     FreezeMethod NVARCHAR(50), -- Vitrification, Slow Freeze
     MonthlyStorageFee DECIMAL(10,2), -- Phí lưu trữ hàng tháng
     Status INT DEFAULT 1, -- Active, Used, Discarded, Expired, Transferred
-    SurvivalAfterThaw BIT, -	- Phôi có sống sau khi rã đông không
+    SurvivalAfterThaw BIT, -- Phôi có sống sau khi rã đông không
     Notes NTEXT,
     CreatedAt DATETIME DEFAULT GETDATE(),
     UpdatedAt DATETIME,
     FOREIGN KEY(EmbryoDetailId) REFERENCES EmbryoDetail(Id) ON DELETE CASCADE
 );
 
+CREATE TABLE EmbryoTransfer (
+    Id UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
+    EmbryoDetailId UNIQUEIDENTIFIER NOT NULL, -- Tham chiếu đến phôi (dù là fresh hay frozen)
+    IsFrozenTransfer BIT DEFAULT 0, -- TRUE = Frozen, FALSE = Fresh
+    TransferDate DATETIME NOT NULL,
+    IsSuccessful BIT, -- Có thụ thai không
+    PregnancyResultNote NTEXT, -- Ghi chú về tình trạng sau khi cấy: beta HCG, siêu âm, v.v.
+    DoctorId UNIQUEIDENTIFIER,
+    FeeCharged DECIMAL(10,2), -- Có tính tiền không?
+    Note NTEXT,
+    CreatedAt DATETIME DEFAULT GETDATE(),
+    UpdatedAt DATETIME,
+    FOREIGN KEY(EmbryoDetailId) REFERENCES EmbryoDetail(Id) ON DELETE CASCADE,
+    FOREIGN KEY(DoctorId) REFERENCES Doctor(Id)
+);

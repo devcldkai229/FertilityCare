@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FertilityCare.Domain.Interfaces.Repositoires;
 
-public interface IPrescriptionRepository : IBaseRepository<Prescription>
+public interface IPrescriptionRepository : IBaseRepository<Prescription, Guid>
 {
     Task<IEnumerable<Prescription>> GetByPlanIdAsync(Guid planId);
     Task<IEnumerable<Prescription>> GetActiveByPlanIdAsync(Guid planId);

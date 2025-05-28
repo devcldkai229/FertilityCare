@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FertilityCare.Domain.Interfaces.Repositoires;
 
-public interface IEmbryoFertilizationRepository : IBaseRepository<EmbryoFertilization>
+public interface IEmbryoFertilizationRepository : IBaseRepository<EmbryoFertilization, Guid>
 {
     Task<IEnumerable<EmbryoFertilization>> GetByCycleIdAsync(Guid cycleId);
     Task<IEnumerable<EmbryoFertilization>> GetByDoctorIdAsync(Guid doctorId);

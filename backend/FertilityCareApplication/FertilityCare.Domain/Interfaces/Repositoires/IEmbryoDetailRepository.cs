@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FertilityCare.Domain.Interfaces.Repositoires;
 
-public interface IEmbryoDetailRepository : IBaseRepository<EmbryoDetail>
+public interface IEmbryoDetailRepository : IBaseRepository<EmbryoDetail, Guid>
 {
     Task<IEnumerable<EmbryoDetail>> GetByFertilizationIdAsync(Guid fertilizationId);
     Task<bool> UpdateStatusAsync(Guid id, string status);
