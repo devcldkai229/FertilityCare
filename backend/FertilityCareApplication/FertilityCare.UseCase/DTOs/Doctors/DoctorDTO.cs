@@ -10,6 +10,8 @@ namespace FertilityCare.UseCase.DTOs.Doctors
 {
     public class DoctorDTO
     {
+        public string? Id { get; set; }
+
         public string? FirstName { get; set; }
 
         public string? MiddleName { get; set; }

@@ -12,7 +12,7 @@ namespace FertilityCare.UseCase.Interfaces
 
         Task<DoctorDTO> GetByIdAsync(Guid id);
 
-        Task<DoctorDTO> GetAllAsync();
+        Task<IEnumerable<DoctorDTO>> GetAllAsync();
 
         Task<DoctorDTO> CreateAsync(CreateDoctorRequestDTO request);
     }

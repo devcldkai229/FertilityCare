@@ -14,6 +14,6 @@ public interface IApplicationUserRepository<T>
 
     Task<T> FindByUsername(string username);
 
-    Task<T> CreateUserAsync(T applicationUser);
+    Task<T> CreateUserAsync(T applicationUser, string rawPassword);
 
 }

@@ -54,9 +54,9 @@ namespace FertilityCare.Infrastructure.Identity
             return result;
         }
 
-        public async Task<ApplicationUser> CreateUserAsync(ApplicationUser applicationUser)
+        public async Task<ApplicationUser> CreateUserAsync(ApplicationUser applicationUser, string rawPassword)
         {
-            var result = await _userManager.CreateAsync(applicationUser);
+            var result = await _userManager.CreateAsync(applicationUser, rawPassword);
             if (!result.Succeeded)
             {
                 throw new CreateUserFailedExpception($"Create new user failed!");

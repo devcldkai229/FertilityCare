@@ -1,6 +1,6 @@
-﻿using FertilityCare.UseCase.DTOs;
+﻿using FertilityCare.Shared.Exceptions;
+using FertilityCare.UseCase.DTOs;
 using FertilityCare.UseCase.DTOs.TreatmentServices;
-using FertilityCare.UseCase.Exceptions;
 using FertilityCare.UseCase.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 

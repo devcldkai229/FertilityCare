@@ -4,6 +4,7 @@ using FertilityCare.Domain.Interfaces.Repositoires;
 using FertilityCare.Infrastructure.Identity;
 using FertilityCare.UseCase.DTOs.Doctors;
 using FertilityCare.UseCase.Interfaces;
+using FertilityCare.UseCase.Mappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,10 +41,9 @@ namespace FertilityCare.UseCase.Services
             {
                 UserName = request.Username,
                 Email = request.Email,
-                PasswordHash = request.Password,
                 PhoneNumber = request.PhoneNumber,
                 EmailConfirmed = false
-            });
+            }, request.Password);
 
             var doctorProfile = await _userProfileRepository.CreateInfoAsync(new UserProfile
             {
@@ -65,17 +65,19 @@ namespace FertilityCare.UseCase.Services
                 Specialization = request.Specialization
             });
 
-            return 
+            return loadedDoctor.MapToDoctorDTO();
         }
 
-        public Task<DoctorDTO> GetAllAsync()
+        public async Task<IEnumerable<DoctorDTO>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var result = await _doctorRepository.GetAllAsync();
+            return result.Select(x => x.MapToDoctorDTO()).ToList();
         }
 
-        public Task<DoctorDTO> GetByIdAsync(Guid id)
+        public async Task<DoctorDTO> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var result = await _doctorRepository.GetByIdAsync(id);
+            return result.MapToDoctorDTO();
         }
     }
 }
