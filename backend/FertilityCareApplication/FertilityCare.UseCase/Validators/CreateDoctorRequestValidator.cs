@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FertilityCare.UseCase.Validators.TreatmentServices
+namespace FertilityCare.UseCase.Validators
 {
     public class CreateDoctorRequestValidator : AbstractValidator<CreateDoctorRequestDTO>
     {

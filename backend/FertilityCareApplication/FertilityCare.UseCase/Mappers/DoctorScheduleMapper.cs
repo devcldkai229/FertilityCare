@@ -15,6 +15,7 @@ namespace FertilityCare.UseCase.Mappers
         {
             return new DoctorScheduleDTO
             {
+                Id = model.Id,
                 WorkDate = model.WorkDate.ToString("dd/MM/yyyy"),
                 StartTime = model.StartTime.ToString("dd/MM/yyyy"),
                 EndTime = model.EndTime.ToString("dd/MM/yyyy"),

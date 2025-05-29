@@ -8,6 +8,9 @@ namespace FertilityCare.UseCase.DTOs.DoctorSchedules
 {
     public class DoctorScheduleDTO
     {
+
+        public long Id { get; set; }
+
         public string? WorkDate { get; set; }
 
         public string? StartTime { get; set; }
