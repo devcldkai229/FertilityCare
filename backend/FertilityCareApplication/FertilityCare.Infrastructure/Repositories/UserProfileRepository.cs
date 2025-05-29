@@ -24,5 +24,17 @@ namespace FertilityCare.Infrastructure.Repositories
             await _context.SaveChangesAsync();
             return profile;
         }
+
+        public Task<UserProfile> UpdateInfoAsync(UserProfile profile)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<UserProfile> CreateInfoAsync(UserProfile profile)
+        {
+            await _context.UserProfiles.AddAsync(profile);
+            await _context.SaveChangesAsync();
+            return profile;
+        }
     }
 }

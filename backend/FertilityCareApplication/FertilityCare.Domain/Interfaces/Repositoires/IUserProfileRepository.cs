@@ -9,5 +9,7 @@ namespace FertilityCare.Domain.Interfaces.Repositoires;
 
 public interface IUserProfileRepository 
 {
-    Task<UserProfile> UpdateInfo(UserProfile profile);
+    Task<UserProfile> UpdateInfoAsync(UserProfile profile);
+
+    Task<UserProfile> CreateInfoAsync(UserProfile profile);
 }

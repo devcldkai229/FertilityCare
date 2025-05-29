@@ -15,24 +15,23 @@ public class Doctor
 
     public virtual UserProfile UserProfile { get; set; }
 
-    public string? Degree { get; set; }
+    public string? Degree { get; set; } = "#NoData";
 
-    public string? Specialization { get; set; }
+    public string? Specialization { get; set; } = "#NoData";
 
-    public int? YearsOfExperience { get; set; }
+    public int? YearsOfExperience { get; set; } = 0;
 
-    public string? Biography { get; set; }
+    public string? Biography { get; set; } = "#NoData";
 
-    public string? Education { get; set; }
+    public string? Education { get; set; } = "#NoData";
 
-    public decimal? Rating { get; set; }
+    public decimal? Rating { get; set; } = 0;
 
-    public int? PatientsServed { get; set; }
+    public int? PatientsServed { get; set; } = 0;
 
-    public bool? IsAcceptingPatients { get; set; }
+    public bool? IsAcceptingPatients { get; set; } = true;
 
-    public virtual List<DoctorSchedule> DoctorSchedules { get; set; }
-
+    public virtual List<DoctorSchedule>? DoctorSchedules { get; set; } = null;
 
 }
     
