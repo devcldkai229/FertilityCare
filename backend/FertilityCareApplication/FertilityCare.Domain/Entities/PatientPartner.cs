@@ -13,7 +13,7 @@ public class PatientPartner
 {
     public Guid Id { get; set; }
 
-    public string FullName { get; set; } = null!;
+    public string? FullName { get; set; } = null!;
 
     public Gender? Gender { get; set; }
 

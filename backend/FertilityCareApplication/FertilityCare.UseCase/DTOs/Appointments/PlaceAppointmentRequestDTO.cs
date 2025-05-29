@@ -47,6 +47,8 @@ namespace FertilityCare.UseCase.DTOs.Appointments
         [EmailAddress]
         public string? PartnerEmail { get; set; }
 
+        public string? Note { get; set; }
+
 
     }
 }

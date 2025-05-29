@@ -12,4 +12,6 @@ public interface IUserProfileRepository
     Task<UserProfile> UpdateInfoAsync(UserProfile profile);
 
     Task<UserProfile> CreateInfoAsync(UserProfile profile);
+
+    Task<UserProfile?> FindByUserIdAsync(Guid userId);
 }

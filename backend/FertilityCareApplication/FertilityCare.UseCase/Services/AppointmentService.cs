@@ -1,7 +1,7 @@
 ﻿using FertilityCare.Domain.Entities;
 using FertilityCare.Domain.Interfaces.Repositoires;
+using FertilityCare.Domain.Enums;
 using FertilityCare.Infrastructure.Identity;
-using FertilityCare.Infrastructure.Repositories;
 using FertilityCare.Shared.Exceptions;
 using FertilityCare.UseCase.DTOs.Appointments;
 using FertilityCare.UseCase.Interfaces;
@@ -11,12 +11,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FertilityCare.UseCase.Mappers;
 
 namespace FertilityCare.UseCase.Services
 {
     public class AppointmentService : IAppointmentService
     {
-        private readonly IApplicationUserRepository<ApplicationUser> _userManager;
 
         private readonly IAppointmentReminderRepository _reminderRepository;
 
@@ -28,26 +28,22 @@ namespace FertilityCare.UseCase.Services
 
         private readonly ILockableRepository<DoctorSchedule, long> _doctorScheduleRepository;
 
-        private readonly IDoctorRepository _doctorRepository;
-
         private readonly IUserProfileRepository _userProfileRepository;
 
-        public AppointmentService(IApplicationUserRepository<ApplicationUser> userManager, 
-            IAppointmentReminderRepository reminderRepository, 
-            IAppointmentRepository appointmentRepository, 
-            IPatientRepository patientRepository, 
-            IPatientPartnerRepository patientPartnerRepository,
-            ILockableRepository<DoctorSchedule, long> doctorScheduleRepository, 
-            IDoctorRepository doctorRepository, 
-            IUserProfileRepository userProfileRepository)
+        public AppointmentService( 
+                IAppointmentReminderRepository reminderRepository, 
+                IAppointmentRepository appointmentRepository, 
+                IPatientRepository patientRepository, 
+                IPatientPartnerRepository patientPartnerRepository,
+                ILockableRepository<DoctorSchedule, long> doctorScheduleRepository, 
+                IUserProfileRepository userProfileRepository
+            )
         {
-            _userManager = userManager;
             _reminderRepository = reminderRepository;
             _appointmentRepository = appointmentRepository;
             _patientRepository = patientRepository;
             _patientPartnerRepository = patientPartnerRepository;
             _doctorScheduleRepository = doctorScheduleRepository;
-            _doctorRepository = doctorRepository;
             _userProfileRepository = userProfileRepository;
         }
 
@@ -63,18 +59,97 @@ namespace FertilityCare.UseCase.Services
                     throw new BookingAppointmentFailedExpception("Schedule to booking not exist or Unavailable!");
                 }
 
-                var loadedAppointments = await _appointmentRepository.GetAllAsync();
-                int bookingCount = loadedAppointments.Count();
+                var currentAppointmentsCount = await _appointmentRepository.CountAsyncBySchedule(schedule.Id);
 
+                if (currentAppointmentsCount > schedule.MaxAppointments)
+                {
+                    await transaction.RollbackAsync();
+                    throw new AppointmentSlotLimitExceededException("Overslot of this schedule!");
+                }
 
+                var loadedUserProfile = await _userProfileRepository.FindByUserIdAsync(Guid.Parse(request.UserId));
+                if (loadedUserProfile is null)
+                {
+                    await transaction.RollbackAsync();
+                    throw new UserNotExistException($"User with id: {request.UserId} not exist!");
+                }
+
+                loadedUserProfile.FirstName = request.FirstName;
+                loadedUserProfile.LastName = request.LastName;
+                loadedUserProfile.MiddleName = request.MiddleName;
+                loadedUserProfile.Address = request.Address;
+                loadedUserProfile.DateOfBirth = request.DateOfBirth;
+
+                await _userProfileRepository.UpdateInfoAsync(loadedUserProfile);
+
+                var savedPatient = await _patientRepository.CreateAsync(new Patient
+                {
+                    UserProfile = loadedUserProfile,
+                    UserProfileId = loadedUserProfile.Id,
+                    MedicalHistory = "#NoData",
+                    AllergiesNotes = "#NoData",
+                    BloodType = "#NoData",
+                    Height = null,
+                    Weight = null,
+                    MaritalStatus = request.PartnerFullName is not null ? "YES" : "NO"
+                });
+
+                var savedPartner = await _patientPartnerRepository.CreateAsync(new PatientPartner
+                {
+                    FullName = request.PartnerFullName,
+                    ContactNumber = request.PartnerPhoneNumber,
+                    Email = request.PartnerEmail,
+                    DateOfBirth = request.DateOfBirth,
+                    BloodType = "#NoData",
+                    Gender = Gender.Male,
+                    MedicalHistory = "#NoData",
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                });
+
+                var placedAppointment = await _appointmentRepository.CreateAsync(new Appointment
+                {
+                    Patient = savedPatient,
+                    TreatmentServiceId = Guid.Parse(request.TreatmentServiceId),
+                    DoctorId = Guid.Parse(request.DoctorId),
+                    DoctorScheduleId = request.DoctorScheduleId,
+                    PatientId = savedPatient.Id,
+                    BookingEmail = request.BookingEmail,
+                    BookingPhone = request.BookingPhone,
+                    CreatedAt = DateTime.Now,
+                    AppointmentDate = schedule.WorkDate.ToDateTime(schedule.StartTime),
+                    StartTime = schedule.StartTime,
+                    EndTime = schedule.EndTime,
+                    Status = AppointmentStatus.Scheduled,
+                    Purpose = "Consultant",
+                    Note = request.Note,
+                    CancellationReason = "#NoData",
+                    UpdatedAt = null
+                });
+
+                var reminderBefore24h = await _reminderRepository.CreateAsync(new AppointmentReminder
+                {
+                    AppointmentId = placedAppointment.Id,
+                    Appointment = placedAppointment,
+                    Patient = savedPatient,
+                    PatientId = savedPatient.Id,
+                    ReminderDate = placedAppointment.AppointmentDate.AddDays(-1),
+                    IsSent = false,
+                    Note = "#NoData",
+                    ReminderMethod = "Email",
+                    Status = AppointmentReminderStatus.Pending,
+                    CreatedAt = DateTime.Now,
+                    SentAt = null,
+                });
+
+                await _appointmentRepository.CommitTransactionAsync();
+                return placedAppointment.MapToAppointmentDTO();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 await transaction.RollbackAsync();
                 throw new BookingAppointmentFailedExpception("Schedule to booking not exist or Unavailable!");
             }
-
-            return null;
         }
 
         public Task<IEnumerable<AppointmentDTO>> GetAppointmentByDoctorIdAsync(Guid doctorId)

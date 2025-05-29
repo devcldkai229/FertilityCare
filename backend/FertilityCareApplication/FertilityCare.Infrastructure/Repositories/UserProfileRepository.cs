@@ -36,5 +36,10 @@ namespace FertilityCare.Infrastructure.Repositories
             await _context.SaveChangesAsync();
             return profile;
         }
+
+        public async Task<UserProfile?> FindByUserIdAsync(Guid userId)
+        {
+            return await _context.UserProfiles.FindAsync(userId);
+        }
     }
 }

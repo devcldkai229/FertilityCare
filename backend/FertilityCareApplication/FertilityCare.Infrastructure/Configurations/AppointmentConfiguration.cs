@@ -30,25 +30,25 @@ public class AppointmentConfiguration : IEntityTypeConfiguration<Appointment>
 
         builder.Property(x => x.CreatedAt).HasDefaultValueSql("GETDATE()");
 
-        builder.HasOne<Patient>()
+        builder.HasOne(x => x.Patient)
             .WithMany()
             .HasForeignKey(x => x.PatientId)
             .OnDelete(DeleteBehavior.Cascade)
             .HasConstraintName("FK_Appointment_Patient");
 
-        builder.HasOne<Doctor>()
+        builder.HasOne(x => x.Doctor)
             .WithMany()
             .HasForeignKey(x => x.DoctorId)
             .OnDelete(DeleteBehavior.NoAction)
             .HasConstraintName("FK_Appointment_Doctor");
 
-        builder.HasOne<DoctorSchedule>()
+        builder.HasOne(x => x.DoctorSchedule)
             .WithMany()
             .HasForeignKey(x => x.DoctorScheduleId)
             .OnDelete(DeleteBehavior.NoAction)
             .HasConstraintName("FK_Appointment_DoctorSchedule");
 
-        builder.HasOne<TreatmentService>()
+        builder.HasOne(x => x.TreatmentService)
             .WithMany()
             .HasForeignKey(x => x.TreatmentServiceId)
             .OnDelete(DeleteBehavior.NoAction)

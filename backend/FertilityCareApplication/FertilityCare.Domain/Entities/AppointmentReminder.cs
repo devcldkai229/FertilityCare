@@ -13,7 +13,11 @@ public class AppointmentReminder
 
     public Guid AppointmentId { get; set; }
 
+    public virtual Appointment Appointment { get; set; }
+
     public Guid PatientId { get; set; }
+
+    public virtual Patient Patient { get; set; }
 
     public DateTime? ReminderDate { get; set; }
 
@@ -21,7 +25,7 @@ public class AppointmentReminder
 
     public bool IsSent { get; set; }
 
-    public DateTime SentAt { get; set; }
+    public DateTime? SentAt { get; set; }
 
     public AppointmentReminderStatus? Status { get; set; }
 

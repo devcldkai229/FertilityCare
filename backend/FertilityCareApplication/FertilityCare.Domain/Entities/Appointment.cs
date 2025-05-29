@@ -15,11 +15,19 @@ public class Appointment
 
     public Guid PatientId { get; set; }
 
+    public virtual Patient Patient { get; set; }
+
     public Guid DoctorId { get; set; }
 
-    public long? DoctorScheduleId { get; set; }
+    public virtual Doctor Doctor { get; set; }
+
+    public long DoctorScheduleId { get; set; }
+
+    public virtual DoctorSchedule DoctorSchedule { get; set; }
 
     public Guid? TreatmentServiceId { get; set; }
+
+    public virtual TreatmentService TreatmentService { get; set; }
 
     public string? BookingEmail { get; set; }
 

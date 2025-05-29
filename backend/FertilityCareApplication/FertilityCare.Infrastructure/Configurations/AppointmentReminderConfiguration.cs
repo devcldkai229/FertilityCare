@@ -36,13 +36,13 @@ public class AppointmentReminderConfiguration : IEntityTypeConfiguration<Appoint
 
         builder.Property(x => x.CreatedAt).HasColumnType("DATETIME").HasDefaultValueSql("GETDATE()");
 
-        builder.HasOne<Appointment>()
+        builder.HasOne(x => x.Appointment)
             .WithMany()
             .HasForeignKey(x => x.AppointmentId)
             .OnDelete(DeleteBehavior.NoAction)
             .HasConstraintName("FK_AppointmentReminder_Appointment");
 
-        builder.HasOne<Patient>()
+        builder.HasOne(x => x.Patient)
             .WithMany()
             .HasForeignKey(x => x.PatientId)
             .OnDelete(DeleteBehavior.NoAction)
