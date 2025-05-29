@@ -12,4 +12,5 @@ public interface IPatientPartnerRepository : IBaseRepository<PatientPartner, Gui
     Task<IEnumerable<PatientPartner>> SearchByNameAsync(string name);
     Task<PatientPartner> GetByEmailAsync(string email);
     Task<PatientPartner> GetByPhoneNumber(string phone);
+    Task<PatientPartner> GetByPatientId(Guid id);
 }

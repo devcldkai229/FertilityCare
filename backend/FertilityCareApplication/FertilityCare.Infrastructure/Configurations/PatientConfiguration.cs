@@ -35,7 +35,7 @@ public class PatientConfiguration : IEntityTypeConfiguration<Patient>
 
         builder.Property(p => p.Note).HasColumnType("NTEXT");
 
-        builder.HasOne<PatientPartner>()
+        builder.HasOne(x => x.PatientPartner)
             .WithOne()
             .HasForeignKey<Patient>(p => p.PatientParnerId)
             .OnDelete(DeleteBehavior.NoAction)

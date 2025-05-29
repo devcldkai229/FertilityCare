@@ -30,7 +30,9 @@ public class Patient
 
     public string? MaritalStatus { get; set; }
 
-    public Guid? PatientParnerId { get; set; }
+    public Guid PatientParnerId { get; set; }
+
+    public virtual PatientPartner PatientPartner { get; set; }
 
     public string? Note { get; set; }
 }

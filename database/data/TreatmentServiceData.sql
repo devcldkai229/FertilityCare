@@ -12,12 +12,12 @@ VALUES
 
 -- IVF Service
 INSERT INTO TreatmentService (
-    Id, TreatmentCategoryId, Name, Description, BasicPrice, Duration, SuccessRate,
+    Id, TreamentCategoryId, Name, Description, BasicPrice, Duration, SuccessRate,
     MinAge, MaxAge, RecommendedFor, Contraindications, IsActive, CreatedAt
 )
 VALUES (
     NEWID(),
-    'EB5C4A0C-B2AD-4292-AA64-D7E1EF891368',
+    '2B39DCAD-04D2-4533-9C61-90C6DB3819B7',
     N'IVF cơ bản',
     N'Dịch vụ thụ tinh trong ống nghiệm cơ bản, bao gồm kích thích buồng trứng, chọc hút trứng và chuyển phôi.',
     60000000,
@@ -33,16 +33,16 @@ VALUES (
 
 SELECT * FROM TreatmentCategory
 
-SELECT * FROM TreatmentServices
+SELECT * FROM TreatmentService
 
 -- IUI Service
 INSERT INTO TreatmentService (
-    Id, TreatmentCategoryId, Name, Description, BasicPrice, Duration, SuccessRate,
+    Id, TreamentCategoryId, Name, Description, BasicPrice, Duration, SuccessRate,
     MinAge, MaxAge, RecommendedFor, Contraindications, IsActive, CreatedAt
 )
 VALUES (
     NEWID(),
-    'BB0B470B-FD54-40AC-B071-6CCFF97B09A8',
+    '7AFF4651-217C-4789-9933-1F802CAAE7C6',
     N'IUI cơ bản',
     N'Dịch vụ bơm tinh trùng vào buồng tử cung, thích hợp cho các trường hợp tinh trùng yếu nhẹ hoặc cổ tử cung bất thường.',
     10000000,
@@ -60,20 +60,22 @@ VALUES (
 -- Các bước IVF
 INSERT INTO TreatmentStep (TreatmentServiceId, StepName, Description, StepOrder, EstimatedDurationDays, IsOptional, IsActive)
 VALUES 
-('AAF4D868-E5F8-4811-A30D-7C78FC1576D1', N'Kích thích buồng trứng', N'Sử dụng hormone để kích thích phát triển nhiều nang trứng.', 1, 10, 0, 1),
-('AAF4D868-E5F8-4811-A30D-7C78FC1576D1', N'Chọc hút trứng', N'Gây mê nhẹ và hút trứng từ buồng trứng.', 2, 1, 0, 1),
-('AAF4D868-E5F8-4811-A30D-7C78FC1576D1', N'Thụ tinh và nuôi cấy phôi', N'Thụ tinh trứng và tinh trùng trong phòng lab và nuôi cấy phôi.', 3, 3, 0, 1),
-('AAF4D868-E5F8-4811-A30D-7C78FC1576D1', N'Chuyển phôi', N'Chuyển phôi vào tử cung người mẹ.', 4, 1, 0, 1),
-('AAF4D868-E5F8-4811-A30D-7C78FC1576D1', N'The dõi beta hCG', N'Xét nghiệm máu sau 2 tuần để kiểm tra có thai.', 5, 10, 0, 1);
+('37C94DC0-ABF1-41B3-88E8-40509BA18D67', N'Kích thích buồng trứng', N'Sử dụng hormone để kích thích phát triển nhiều nang trứng.', 1, 10, 0, 1),
+('37C94DC0-ABF1-41B3-88E8-40509BA18D67', N'Chọc hút trứng', N'Gây mê nhẹ và hút trứng từ buồng trứng.', 2, 1, 0, 1),
+('37C94DC0-ABF1-41B3-88E8-40509BA18D67', N'Thụ tinh và nuôi cấy phôi', N'Thụ tinh trứng và tinh trùng trong phòng lab và nuôi cấy phôi.', 3, 3, 0, 1),
+('37C94DC0-ABF1-41B3-88E8-40509BA18D67', N'Chuyển phôi', N'Chuyển phôi vào tử cung người mẹ.', 4, 1, 0, 1),
+('37C94DC0-ABF1-41B3-88E8-40509BA18D67', N'The dõi beta hCG', N'Xét nghiệm máu sau 2 tuần để kiểm tra có thai.', 5, 10, 0, 1);
 
 -- Các bước IUI
 INSERT INTO TreatmentStep (TreatmentServiceId, StepName, Description, StepOrder, EstimatedDurationDays, IsOptional, IsActive)
 VALUES 
-('343B203A-90B1-447D-A582-1360AA3A831E', N'Kích thích rụng trứng nhẹ', N'Sử dụng thuốc để kích thích rụng trứng đúng thời điểm.', 1, 5, 0, 1),
-('343B203A-90B1-447D-A582-1360AA3A831E', N'Bơm tinh trùng vào tử cung', N'Đưa tinh trùng đã lọc rửa vào tử cung bằng ống nhỏ.', 2, 1, 0, 1),
-('343B203A-90B1-447D-A582-1360AA3A831E', N'Theo dõi và thử thai', N'Theo dõi chu kỳ và xét nghiệm máu kiểm tra thai.', 3, 10, 0, 1);
+('0444E079-2AE6-4A75-951B-6C6BD8F578BD', N'Kích thích rụng trứng nhẹ', N'Sử dụng thuốc để kích thích rụng trứng đúng thời điểm.', 1, 5, 0, 1),
+('0444E079-2AE6-4A75-951B-6C6BD8F578BD', N'Bơm tinh trùng vào tử cung', N'Đưa tinh trùng đã lọc rửa vào tử cung bằng ống nhỏ.', 2, 1, 0, 1),
+('0444E079-2AE6-4A75-951B-6C6BD8F578BD', N'Theo dõi và thử thai', N'Theo dõi chu kỳ và xét nghiệm máu kiểm tra thai.', 3, 10, 0, 1);
 
 
-SELECT * FROM TreatmentService WHERE ID = 'aaf4d868-e5f8-4811-a30d-7c78fc1576d1'
+SELECT * FROM TreatmentService WHERE ID = '37C94DC0-ABF1-41B3-88E8-40509BA18D67'
 
-SELECT COUNT(*) FROM TreatmentServices;
+SELECT * FROM TreatmentService
+
+SELECT COUNT(*) FROM TreatmentService;

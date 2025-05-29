@@ -92,5 +92,9 @@ namespace FertilityCare.Infrastructure.Repositories
             return entity;
         }
 
+        public async Task<PatientPartner> GetByPatientId(Guid id)
+        {
+            await _context.
+        }
     }
 }

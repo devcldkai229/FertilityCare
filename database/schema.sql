@@ -1,9 +1,6 @@
-﻿CREATE DATABASE FeritilyCareDB
-CREATE DATABASE FertilityCareDB
+﻿CREATE DATABASE FertilityCareDB
 
 USE FertilityCareDB
-
-DROP DATABASE FeritilyCareDB
 
 -- 1. Hồ sơ người dùng (tích hợp Identity User)
 CREATE TABLE UserProfile (
