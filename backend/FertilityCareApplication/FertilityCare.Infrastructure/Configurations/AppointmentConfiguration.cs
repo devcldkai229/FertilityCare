@@ -18,6 +18,10 @@ public class AppointmentConfiguration : IEntityTypeConfiguration<Appointment>
 
         builder.Property(x => x.AppointmentDate).IsRequired();
 
+        builder.Property(x => x.BookingEmail).HasColumnType("NVARCHAR(MAX)");
+
+        builder.Property(x => x.BookingPhone).HasColumnType("NVARCHAR(12)");
+
         builder.Property(x => x.StartTime).HasColumnType("TIME");
 
         builder.Property(x => x.EndTime).HasColumnType("TIME");

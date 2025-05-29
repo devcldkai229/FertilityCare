@@ -1,8 +1,10 @@
 ﻿using FertilityCare.Domain.Entities;
 using FertilityCare.Domain.Interfaces.Repositoires;
+using FertilityCare.Domain.Enums;
 using FertilityCare.Infrastructure.Data;
 using FertilityCare.Shared.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +17,8 @@ namespace FertilityCare.Infrastructure.Repositories
     {
 
         private readonly FertilityCareDBContext _context;
+
+        private IDbContextTransaction _currentTransaction;
 
         public AppointmentRepository(FertilityCareDBContext context)
         {
@@ -118,5 +122,68 @@ namespace FertilityCare.Infrastructure.Repositories
             await _context.SaveChangesAsync();
             return entity;
         }
+
+        public async Task<int> CountAsyncBySchedule(long DoctorScheduleId)
+        {
+             var a = await _context.Appointments.CountAsync(x => x.DoctorScheduleId == DoctorScheduleId 
+             && x.Status != AppointmentStatus.Cancelled 
+             && x.Status != AppointmentStatus.Completed);
+            return a;
+        }
+
+        public virtual async Task<IDbContextTransaction> BeginTransactionAsync()
+        {
+            if(_currentTransaction is not null)
+            {
+                throw new InvalidOperationException("Transaction is in use!");
+            }
+
+            _currentTransaction = await _context.Database.BeginTransactionAsync();
+            return _currentTransaction;
+        }
+
+        public virtual async Task CommitTransactionAsync()
+        {
+            if(_currentTransaction is null)
+            {
+                throw new InvalidOperationException("Not found transaction to commit!");
+            }
+
+            try
+            {
+                await _currentTransaction.CommitAsync();
+            }
+            finally
+            {
+                _currentTransaction.Dispose();
+                _currentTransaction = null;
+            }
+        }
+
+        public virtual async Task RollbackTransactionAsync()
+        {
+            if(_currentTransaction is null)
+            {
+                throw new InvalidOperationException("Not found transaction to commit!");
+            }
+
+            try
+            {
+                await _currentTransaction.RollbackAsync();
+            }
+            finally
+            {
+                _currentTransaction.Dispose();
+                _currentTransaction = null;
+            }
+        }
+
+        public virtual void Dispose()
+        {
+            _currentTransaction?.Dispose();
+            _context?.Dispose();
+        }
+
+      
     }
 }

@@ -21,6 +21,10 @@ public class Appointment
 
     public Guid? TreatmentServiceId { get; set; }
 
+    public string? BookingEmail { get; set; }
+
+    public string? BookingPhone { get; set; }
+
     public DateTime AppointmentDate { get; set; }
 
     public TimeOnly? StartTime { get; set; }

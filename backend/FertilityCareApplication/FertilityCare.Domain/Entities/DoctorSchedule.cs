@@ -19,7 +19,7 @@ public class DoctorSchedule
 
     public TimeOnly EndTime { get; set; }
 
-    public bool? IsAvailable { get; set; }
+    public bool IsAvailable { get; set; }
 
     public int? MaxAppointments { get; set; }
 

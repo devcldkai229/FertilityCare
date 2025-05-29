@@ -1,4 +1,5 @@
 ﻿using FertilityCare.Domain.Entities;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,4 +16,15 @@ public interface IAppointmentRepository : IBaseRepository<Appointment, Guid>
     Task<Appointment> CancelAppointmentAsync(Guid id, string reason);
     Task<IEnumerable<Appointment>> GetTodayAppointmentsAsync(Guid doctorId);
     Task<IEnumerable<Appointment>> GetByTreatmentServiceAsync(Guid treatmentServiceId);
+
+    Task<int> CountAsyncBySchedule(long DoctorScheduleId);
+
+    Task<IDbContextTransaction> BeginTransactionAsync();
+
+    Task CommitTransactionAsync();
+
+    Task RollbackTransactionAsync();
+
+
+
 }
