@@ -42,6 +42,8 @@ namespace FertilityCare.UseCase.DTOs.Patient
 
         public string? MaritalStatus { get; set; }
 
+        public string? PartnerFullName { get; set; }
+
         public string? CreatedAt { get; set; }
 
     }

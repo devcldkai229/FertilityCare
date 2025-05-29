@@ -7,12 +7,7 @@ using System.Threading.Tasks;
 
 namespace FertilityCare.Domain.Interfaces.Repositoires;
 
-public interface IUserProfileRepository : IBaseRepository<UserProfile, Guid>
+public interface IUserProfileRepository 
 {
-    Task<UserProfile> GetByEmailAsync(string email);
-    Task<UserProfile> GetByUsernameAsync(string username);
-    Task<IEnumerable<UserProfile>> GetActiveUsersAsync();
-    Task<bool> DeactivateAsync(Guid id);
-    Task<bool> ActivateAsync(Guid id);
-    Task<IEnumerable<UserProfile>> GetByLocationAsync(string city, string province);
+    Task<UserProfile> UpdateInfo(UserProfile profile);
 }

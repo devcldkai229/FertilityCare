@@ -11,34 +11,26 @@ namespace FertilityCare.UseCase.DTOs.Patient
     {
         public Guid UserProfileId { get; set; }
 
-        public string? MedicalHistory { get; set; }
+        public string? FirstName { get; set; }
 
-        public string? FertilityDiagnosis { get; set; }
+        public string? MiddleName { get; set; }
 
-        public string? AllergiesNotes { get; set; }
-
-        public string? BloodType { get; set; }
-
-        public decimal? Height { get; set; }
-
-        public decimal? Weight { get; set; }
-
-        public string? MaritalStatus { get; set; }
-
-        public string FullName { get; set; } = null!;
+        public string? LastName { get; set; }
 
         public string? Gender { get; set; }
 
         public DateOnly? DateOfBirth { get; set; }
 
-        public string? BloodTypePartner { get; set; }
+        public string? Address { get; set; }
 
-        public string? MedicalHistoryPartner { get; set; }
+        public string? MedicalHistory { get; set; }
 
-        public string? ContactNumberPartner { get; set; }
+        public string? PartnerFullName { get; set; }
 
-        public string? EmailPartner { get; set; }
+        public DateOnly? PartnerDateOfBirth { get; set; }
 
-        public string? Note { get; set; }
+        public string? PartnerPhoneNumber { get; set; }
+
+        public string? PartnerEmail { get; set; }
     }
 }

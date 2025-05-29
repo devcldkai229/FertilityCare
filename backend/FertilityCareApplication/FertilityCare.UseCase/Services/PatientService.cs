@@ -1,8 +1,9 @@
-﻿using FertilityCare.Domain.Interfaces.Repositoires;
+﻿using FertilityCare.Domain.Entities;
+using FertilityCare.Domain.Interfaces.Repositoires;
 using FertilityCare.UseCase.DTOs.Patient;
-using FertilityCare.UseCase.DTOs.PatientPartner;
 using FertilityCare.UseCase.Interfaces;
 using FertilityCare.UseCase.Mappers;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,12 +16,15 @@ namespace FertilityCare.UseCase.Services
     {
         private readonly IPatientRepository _patientRepository;
 
-        private readonly IPatientPartnerRepository _patientPartnerRepository;
-
-        public PatientService(IPatientRepository patientRepository, IPatientPartnerRepository patientPartnerRepository)
+        public PatientService(IPatientRepository patientRepository)
         {
             _patientRepository = patientRepository;
-            _patientPartnerRepository = patientPartnerRepository;
+        }
+
+        public async Task<PatientDTO> CreateAsync(Patient request)
+        {
+            var result = await _patientRepository.CreateAsync(request);
+            return result.MapToPatientDTO();
         }
 
         public async Task<IEnumerable<PatientDTO>> GetAllAsync()
@@ -33,11 +37,6 @@ namespace FertilityCare.UseCase.Services
         {
             var result = await _patientRepository.GetByIdAsync(id);
             return result.MapToPatientDTO();
-        }
-
-        public async Task<PatientPartnerDTO> GetPartnerByPatientId(Guid Id)
-        {
-            return null;
         }
     }
 }

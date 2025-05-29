@@ -15,9 +15,7 @@ namespace FertilityCare.UseCase.Interfaces
 
         Task<IEnumerable<PatientDTO>> GetAllAsync();
 
-        Task<PatientPartnerDTO> GetPartnerByPatientId(Guid id);
-
-
+        Task<PatientDTO> CreateAsync(Patient record);
 
     }
 }

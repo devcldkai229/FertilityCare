@@ -8,11 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="DTOs\ApplicationUsers\" />
     <Folder Include="Query\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\FertilityCare.Domain\FertilityCare.Domain.csproj" />
+    <ProjectReference Include="..\FertilityCare.Infrastructure\FertilityCare.Infrastructure.csproj" />
+    <ProjectReference Include="..\FertilityCare.Shared\FertilityCare.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

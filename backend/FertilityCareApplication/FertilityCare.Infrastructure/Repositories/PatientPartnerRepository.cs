@@ -2,7 +2,7 @@
 using FertilityCare.Domain.Entities;
 using FertilityCare.Domain.Interfaces.Repositoires;
 using FertilityCare.Infrastructure.Data;
-using FertilityCare.UseCase.Exceptions;
+using FertilityCare.Shared.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -94,7 +94,7 @@ namespace FertilityCare.Infrastructure.Repositories
 
         public async Task<PatientPartner> GetByPatientId(Guid id)
         {
-            await _context.
+            return null;
         }
     }
 }

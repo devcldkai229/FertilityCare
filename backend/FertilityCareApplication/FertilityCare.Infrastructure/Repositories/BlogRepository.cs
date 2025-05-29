@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using FertilityCare.Domain.Entities;
 using FertilityCare.Domain.Interfaces.Repositoires;
 using FertilityCare.Infrastructure.Data;
-using FertilityCare.UseCase.Exceptions;
+using FertilityCare.Shared.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 

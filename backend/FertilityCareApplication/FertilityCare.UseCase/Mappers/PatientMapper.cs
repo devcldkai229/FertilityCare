@@ -32,6 +32,7 @@ namespace FertilityCare.UseCase.Mappers
                 Height = model.Height,
                 Weight = model.Weight,
                 MaritalStatus = model.MaritalStatus,
+                PartnerFullName = model.PatientPartner.FullName,
                 CreatedAt = model.UserProfile?.CreatedAt?.ToString("dd/MM/yyyy HH:mm:ss"),
             };
         }

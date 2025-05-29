@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FertilityCare.UseCase.Exceptions;
+namespace FertilityCare.Shared.Exceptions;
 
 public class ConflictException : BaseException
 {
