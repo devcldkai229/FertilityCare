@@ -14,8 +14,5 @@ public interface IServicePackagePlanStepRepository : IBaseRepository<ServicePack
 >>>>>>> 8a9d6d21333bd116d89cc790a1916317ff1b146c
 {
     Task<IEnumerable<ServicePackagePlanStep>> GetByPlanIdAsync(Guid planId);
-    Task<IEnumerable<ServicePackagePlanStep>> GetPendingStepsAsync(Guid planId);
-    Task<IEnumerable<ServicePackagePlanStep>> GetCompletedStepsAsync(Guid planId);
-    Task<IEnumerable<ServicePackagePlanStep>> GetOverdueStepsAsync();
     Task<ServicePackagePlanStep> GetCurrentStepAsync(Guid planId);
 }

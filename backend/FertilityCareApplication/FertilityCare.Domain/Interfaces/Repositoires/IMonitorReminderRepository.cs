@@ -12,6 +12,5 @@ public interface IMonitorReminderRepository : IBaseRepository<MonitorReminder, l
     Task<IEnumerable<MonitorReminder>> GetByPatientIdAsync(Guid patientId);
     Task<IEnumerable<MonitorReminder>> GetByPlanIdAsync(Guid planId);
     Task<IEnumerable<MonitorReminder>> GetBySenderIdAsync(Guid senderId);
-    Task<bool> CompleteReminderAsync(long id);
     Task<IEnumerable<MonitorReminder>> GetDueRemindersAsync(DateTime currentTime);
 }
