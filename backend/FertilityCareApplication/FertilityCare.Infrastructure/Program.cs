@@ -12,7 +12,7 @@ namespace FertilityCare.Infrastructure
     {
         public static void Main(string[] args)
         {
-          
+            
 
         }
     }

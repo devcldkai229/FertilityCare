@@ -23,12 +23,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Queries\" />
+    <ProjectReference Include="..\FertilityCare.Domain\FertilityCare.Domain.csproj" />
+    <ProjectReference Include="..\FertilityCare.Shared\FertilityCare.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FertilityCare.Domain\FertilityCare.Domain.csproj" />
-    <ProjectReference Include="..\FertilityCare.Shared\FertilityCare.Shared.csproj" />
+    <Folder Include="BackgroundServices\" />
   </ItemGroup>
 
 </Project>

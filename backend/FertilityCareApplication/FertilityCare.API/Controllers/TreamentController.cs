@@ -39,9 +39,11 @@ namespace FertilityCare.API.Controllers
                     ResponsedAt = DateTime.Now
                 });
             }
+
             try
             {
                 var result = await _treatmentService.GetByIdAsync(id);
+
                 return Ok(new ApiResponse<TreatmentServiceDTO>
                 {
                     StatusCode = 200,

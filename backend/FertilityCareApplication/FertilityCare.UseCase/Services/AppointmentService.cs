@@ -1,7 +1,6 @@
 ﻿using FertilityCare.Domain.Entities;
 using FertilityCare.Domain.Interfaces.Repositoires;
 using FertilityCare.Domain.Enums;
-using FertilityCare.Infrastructure.Identity;
 using FertilityCare.Shared.Exceptions;
 using FertilityCare.UseCase.DTOs.Appointments;
 using FertilityCare.UseCase.Interfaces;

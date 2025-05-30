@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <Folder Include="DTOs\ApplicationUsers\" />
-    <Folder Include="Query\" />
   </ItemGroup>
 
   <ItemGroup>

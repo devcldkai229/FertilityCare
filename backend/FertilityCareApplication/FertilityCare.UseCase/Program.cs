@@ -1,4 +1,7 @@
-﻿using System;
+﻿using FertilityCare.Infrastructure.Configurations;
+using FertilityCare.UseCase.Events.Registries;
+using FertilityCare.UseCase.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +13,7 @@ namespace FertilityCare.UseCase
     {
         static void Main(string[] args)
         {
-
+         
         }
     }
 }
