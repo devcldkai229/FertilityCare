@@ -28,54 +28,58 @@ namespace FertilityCare.Infrastructure.Repositories
             return entity;
         }
 
-        public Task DeleteAsync(long id)
+        public async Task DeleteAsync(long id)
         {
-            throw new NotImplementedException();
+            var step = await _context.ServicePackagePlanSteps.FindAsync(id);
+            if (step is null)
+            {
+                throw new NotFoundException($"Step with Id: {id} does not exist!");
+            }
+
+            _context.ServicePackagePlanSteps.Remove(step);
+            await _context.SaveChangesAsync();
         }
 
-        public Task<bool> ExistsAsync(long id)
+        public async Task<bool> ExistsAsync(long id)
         {
-            throw new NotImplementedException();
+            return await _context.ServicePackagePlanSteps.AnyAsync(x => x.Id == id);
         }
 
-        public Task<IEnumerable<ServicePackagePlanStep>> GetAllAsync()
+        public async Task<IEnumerable<ServicePackagePlanStep>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.ServicePackagePlanSteps.ToListAsync();
         }
 
-        public Task<ServicePackagePlanStep> GetByIdAsync(long id)
+        public async Task<ServicePackagePlanStep> GetByIdAsync(long id)
         {
-            throw new NotImplementedException();
+            var step = await _context.ServicePackagePlanSteps.FindAsync(id);
+            if (step is null)
+            {
+                throw new NotFoundException($"Step with Id: {id} does not exist!");
+            }
+
+            return step;
         }
 
-        public Task<IEnumerable<ServicePackagePlanStep>> GetByPlanIdAsync(Guid planId)
+        public async Task<IEnumerable<ServicePackagePlanStep>> GetByPlanIdAsync(Guid planId)
         {
-            throw new NotImplementedException();
+            return await _context.ServicePackagePlanSteps
+                .Where(s => s.ServicePackagePlanId == planId) 
+                .ToListAsync();
         }
 
-        public Task<IEnumerable<ServicePackagePlanStep>> GetCompletedStepsAsync(Guid planId)
+        public async Task<ServicePackagePlanStep> GetCurrentStepAsync(Guid planId)
         {
-            throw new NotImplementedException();
+            return await _context.ServicePackagePlanSteps
+                .Where(s => s.ServicePackagePlanId == planId && s.IsComplete == false)
+                .FirstOrDefaultAsync();
         }
 
-        public Task<ServicePackagePlanStep> GetCurrentStepAsync(Guid planId)
+        public async Task<ServicePackagePlanStep> UpdateAsync(ServicePackagePlanStep entity)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<ServicePackagePlanStep>> GetOverdueStepsAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<ServicePackagePlanStep>> GetPendingStepsAsync(Guid planId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ServicePackagePlanStep> UpdateAsync(ServicePackagePlanStep entity)
-        {
-            throw new NotImplementedException();
+            _context.ServicePackagePlanSteps.Update(entity);
+            await _context.SaveChangesAsync();
+            return entity;
         }
     }
 }
