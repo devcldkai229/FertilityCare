@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace FertilityCare.Domain.Interfaces.Repositoires;
 
-public interface IUserProfileRepository : IBaseRepository<UserProfile, Guid>
-
+public interface IUserProfileRepository
 {
     Task<UserProfile> UpdateInfoAsync(UserProfile profile);
 

@@ -3,11 +3,7 @@ using FertilityCare.Domain.DTOs;
 using FertilityCare.Domain.Entities;
 using FertilityCare.Domain.Interfaces.Repositoires;
 using FertilityCare.Infrastructure.Data;
-<<<<<<< HEAD
 using FertilityCare.Shared.Exceptions;
-=======
-using FertilityCare.UseCase.Exceptions;
->>>>>>> origin/features/thanghs
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

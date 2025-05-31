@@ -18,16 +18,11 @@ namespace FertilityCare.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<UserProfile> UpdateInfo(UserProfile profile)
+        public async Task<UserProfile> UpdateInfoAsync(UserProfile profile)
         {
             _context.UserProfiles.Update(profile);
             await _context.SaveChangesAsync();
             return profile;
-        }
-
-        public Task<UserProfile> UpdateInfoAsync(UserProfile profile)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<UserProfile> CreateInfoAsync(UserProfile profile)
@@ -41,5 +36,6 @@ namespace FertilityCare.Infrastructure.Repositories
         {
             return await _context.UserProfiles.FindAsync(userId);
         }
+
     }
 }
