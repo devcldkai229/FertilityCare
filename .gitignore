@@ -4,3 +4,5 @@ obj/
 .vs/
 .vsidx/
 .sln/
+/backend/FertilityCareApplication/FertilityCare.Infrastructure/Program.cs
+/backend/FertilityCareApplication/FertilityCare.UseCase/FertilityCare.UseCase.csproj
