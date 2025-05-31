@@ -7,7 +7,11 @@ using System.Threading.Tasks;
 
 namespace FertilityCare.Domain.Interfaces.Repositoires;
 
+<<<<<<< HEAD
 public interface IUserProfileRepository 
+=======
+public interface IUserProfileRepository : IBaseRepository<UserProfile, Guid>
+>>>>>>> origin/features/thanghs
 {
     Task<UserProfile> UpdateInfoAsync(UserProfile profile);
 

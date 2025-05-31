@@ -8,13 +8,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
     <Folder Include="DTOs\ApplicationUsers\" />
+=======
+    <Folder Include="Query\" />
+>>>>>>> origin/features/thanghs
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\FertilityCare.Domain\FertilityCare.Domain.csproj" />
+<<<<<<< HEAD
     <ProjectReference Include="..\FertilityCare.Infrastructure\FertilityCare.Infrastructure.csproj" />
     <ProjectReference Include="..\FertilityCare.Shared\FertilityCare.Shared.csproj" />
+=======
+>>>>>>> origin/features/thanghs
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 ﻿using FertilityCare.Shared.Exceptions;
 using FertilityCare.UseCase.DTOs;
 using FertilityCare.UseCase.DTOs.TreatmentServices;
+=======
+﻿using FertilityCare.UseCase.DTOs;
+using FertilityCare.UseCase.DTOs.TreatmentServices;
+using FertilityCare.UseCase.Exceptions;
+>>>>>>> origin/features/thanghs
 using FertilityCare.UseCase.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,12 +19,20 @@ namespace FertilityCare.API.Controllers
 
         private readonly ITreatmentService _treatmentService;
 
+<<<<<<< HEAD
         private readonly ILogger<TreamentController> _logger;
 
         public TreamentController(ITreatmentService treatmentService, ILogger<TreamentController> logger)
         {
             _treatmentService = treatmentService;
             _logger = logger;
+=======
+        private readonly ILogger _logger;
+
+        public TreamentController(ITreatmentService treatmentService)
+        {
+            _treatmentService = treatmentService;   
+>>>>>>> origin/features/thanghs
         }
 
         [HttpGet]
@@ -39,11 +53,17 @@ namespace FertilityCare.API.Controllers
                     ResponsedAt = DateTime.Now
                 });
             }
+<<<<<<< HEAD
 
             try
             {
                 var result = await _treatmentService.GetByIdAsync(id);
 
+=======
+            try
+            {
+                var result = await _treatmentService.GetByIdAsync(id);
+>>>>>>> origin/features/thanghs
                 return Ok(new ApiResponse<TreatmentServiceDTO>
                 {
                     StatusCode = 200,

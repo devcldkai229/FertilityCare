@@ -13,7 +13,10 @@ namespace FertilityCare.Infrastructure
         public static void Main(string[] args)
         {
             
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/features/thanghs
         }
     }
 }

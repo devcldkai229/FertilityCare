@@ -7,11 +7,16 @@ using System.Threading.Tasks;
 
 namespace FertilityCare.Domain.Interfaces.Repositoires;
 
+<<<<<<< HEAD
 public interface IServicePackagePlanStepRepository : IBaseRepository<ServicePackagePlan, Guid>
+=======
+
+public interface IServicePackagePlanStepRepository : IBaseRepository<ServicePackagePlanStep, long>
+
+
+
+>>>>>>> origin/features/thanghs
 {
     Task<IEnumerable<ServicePackagePlanStep>> GetByPlanIdAsync(Guid planId);
-    Task<IEnumerable<ServicePackagePlanStep>> GetPendingStepsAsync(Guid planId);
-    Task<IEnumerable<ServicePackagePlanStep>> GetCompletedStepsAsync(Guid planId);
-    Task<IEnumerable<ServicePackagePlanStep>> GetOverdueStepsAsync();
     Task<ServicePackagePlanStep> GetCurrentStepAsync(Guid planId);
 }
