@@ -1,12 +1,6 @@
-<<<<<<< HEAD
 ﻿using FertilityCare.Shared.Exceptions;
 using FertilityCare.UseCase.DTOs;
 using FertilityCare.UseCase.DTOs.TreatmentServices;
-=======
-﻿using FertilityCare.UseCase.DTOs;
-using FertilityCare.UseCase.DTOs.TreatmentServices;
-using FertilityCare.UseCase.Exceptions;
->>>>>>> origin/features/thanghs
 using FertilityCare.UseCase.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,25 +8,17 @@ namespace FertilityCare.API.Controllers
 {
     [Route("api/v1/treament-services")]
     [ApiController]
-    public class TreamentController : ControllerBase
+    public class TreatmentController : ControllerBase
     {
 
         private readonly ITreatmentService _treatmentService;
 
-<<<<<<< HEAD
-        private readonly ILogger<TreamentController> _logger;
+        private readonly ILogger<TreatmentController> _logger;
 
-        public TreamentController(ITreatmentService treatmentService, ILogger<TreamentController> logger)
+        public TreatmentController(ITreatmentService treatmentService, ILogger<TreatmentController> logger)
         {
             _treatmentService = treatmentService;
             _logger = logger;
-=======
-        private readonly ILogger _logger;
-
-        public TreamentController(ITreatmentService treatmentService)
-        {
-            _treatmentService = treatmentService;   
->>>>>>> origin/features/thanghs
         }
 
         [HttpGet]
@@ -53,23 +39,10 @@ namespace FertilityCare.API.Controllers
                     ResponsedAt = DateTime.Now
                 });
             }
-<<<<<<< HEAD
-<<<<<<< HEAD
-
+      
             try
             {
                 var result = await _treatmentService.GetByIdAsync(id);
-
-=======
-            try
-            {
-                var result = await _treatmentService.GetByIdAsync(id);
->>>>>>> origin/features/thanghs
-=======
-            try
-            {
-                var result = await _treatmentService.GetByIdAsync(id);
->>>>>>> parent of 6df8eb2 (Email Configurations And Implement Event Handler for email)
                 return Ok(new ApiResponse<TreatmentServiceDTO>
                 {
                     StatusCode = 200,

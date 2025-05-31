@@ -17,4 +17,11 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FertilityCare.Domain\FertilityCare.Domain.csproj" />
+    <ProjectReference Include="..\FertilityCare.Infrastructure\FertilityCare.Infrastructure.csproj" />
+    <ProjectReference Include="..\FertilityCare.Shared\FertilityCare.Shared.csproj" />
+    <ProjectReference Include="..\FertilityCare.UseCase\FertilityCare.UseCase.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -16,6 +16,8 @@ namespace FertilityCare.UseCase.Interfaces
 
         Task<IEnumerable<AppointmentDTO>> GetAppointmentByPatientIdAsync(Guid patientId);
 
+        Task<AppointmentDTO> GetAppointmentByIdAsync(Guid id);
+
         Task<IEnumerable<AppointmentDTO>> GetAppointmentByTreatmentServiceIdAsync(Guid treatmentServiceId);
 
         Task<IEnumerable<AppointmentDTO>> GetAppointmentByDoctorScheduleIdAsync(long scheduleId);

@@ -177,6 +177,11 @@ namespace FertilityCare.UseCase.Services
             throw new NotImplementedException();
         }
 
+        public async Task<AppointmentDTO> GetAppointmentByIdAsync(Guid id)
+        {
+            var result = await _appointmentRepository.GetByIdAsync(id);
+            return result.MapToAppointmentDTO();
         }
+    }
  
 }
