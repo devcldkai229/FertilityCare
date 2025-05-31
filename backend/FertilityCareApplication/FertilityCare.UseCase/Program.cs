@@ -1,11 +1,9 @@
-<<<<<<< HEAD
+
 ﻿using FertilityCare.Infrastructure.Configurations;
 using FertilityCare.UseCase.Events.Registries;
 using FertilityCare.UseCase.Services;
 using System;
-=======
-﻿using System;
->>>>>>> origin/features/thanghs
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,11 +15,7 @@ namespace FertilityCare.UseCase
     {
         static void Main(string[] args)
         {
-<<<<<<< HEAD
-         
-=======
 
->>>>>>> origin/features/thanghs
         }
     }
 }

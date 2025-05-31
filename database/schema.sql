@@ -90,8 +90,6 @@ CREATE TABLE TreatmentCategory (
     CreatedAt DATETIME DEFAULT GETDATE(),
 );
 
-SELECT * FROM TreatmentService
-
 -- 7. Dịch vụ điều trị
 CREATE TABLE TreatmentService (
     Id UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),

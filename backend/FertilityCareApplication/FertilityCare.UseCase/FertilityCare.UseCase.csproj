@@ -8,24 +8,24 @@
   </PropertyGroup>
 
   <ItemGroup>
-<<<<<<< HEAD
-    <Folder Include="DTOs\ApplicationUsers\" />
-=======
-    <Folder Include="Query\" />
->>>>>>> origin/features/thanghs
+    <Compile Remove="Query\**" />
+    <EmbeddedResource Remove="Query\**" />
+    <None Remove="Query\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FertilityCare.Domain\FertilityCare.Domain.csproj" />
-<<<<<<< HEAD
-    <ProjectReference Include="..\FertilityCare.Infrastructure\FertilityCare.Infrastructure.csproj" />
-    <ProjectReference Include="..\FertilityCare.Shared\FertilityCare.Shared.csproj" />
-=======
->>>>>>> origin/features/thanghs
+    <Folder Include="DTOs\ApplicationUsers\" />
+
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FertilityCare.Domain\FertilityCare.Domain.csproj" />
+    <ProjectReference Include="..\FertilityCare.Infrastructure\FertilityCare.Infrastructure.csproj" />
+    <ProjectReference Include="..\FertilityCare.Shared\FertilityCare.Shared.csproj" />
   </ItemGroup>
 
 </Project>

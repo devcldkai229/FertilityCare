@@ -12,8 +12,12 @@ namespace FertilityCare.Infrastructure
     {
         public static void Main(string[] args)
         {
+<<<<<<< HEAD
             
 <<<<<<< HEAD
+=======
+          
+>>>>>>> parent of 6df8eb2 (Email Configurations And Implement Event Handler for email)
 
 =======
 >>>>>>> origin/features/thanghs

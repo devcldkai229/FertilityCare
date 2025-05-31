@@ -54,6 +54,7 @@ namespace FertilityCare.API.Controllers
                 });
             }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
             try
             {
@@ -64,6 +65,11 @@ namespace FertilityCare.API.Controllers
             {
                 var result = await _treatmentService.GetByIdAsync(id);
 >>>>>>> origin/features/thanghs
+=======
+            try
+            {
+                var result = await _treatmentService.GetByIdAsync(id);
+>>>>>>> parent of 6df8eb2 (Email Configurations And Implement Event Handler for email)
                 return Ok(new ApiResponse<TreatmentServiceDTO>
                 {
                     StatusCode = 200,

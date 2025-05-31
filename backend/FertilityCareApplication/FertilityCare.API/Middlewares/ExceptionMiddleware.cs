@@ -1,5 +1,5 @@
 ﻿
-using FertilityCare.Shared.Exceptions;
+using FertilityCare.UseCase.Exceptions;
 
 namespace FertilityCare.API.Middlewares;
 
