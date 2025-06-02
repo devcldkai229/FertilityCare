@@ -21,18 +21,6 @@ public class PatientConfiguration : IEntityTypeConfiguration<Patient>
 
         builder.Property(p => p.MedicalHistory).HasColumnType("NTEXT");
 
-        builder.Property(p => p.FertilityDiagnosis).HasColumnType("NVARCHAR(MAX)");
-
-        builder.Property(p => p.AllergiesNotes).HasColumnType("NTEXT");
-
-        builder.Property(p => p.BloodType).HasColumnType("NVARCHAR(20)");
-
-        builder.Property(p => p.Height).HasColumnType("DECIMAL(5,2)");
-
-        builder.Property(p => p.Weight).HasColumnType("DECIMAL(5,2)");
-
-        builder.Property(p => p.MaritalStatus).HasColumnType("NVARCHAR(50)");
-
         builder.Property(p => p.Note).HasColumnType("NTEXT");
 
         builder.HasOne(x => x.PatientPartner)

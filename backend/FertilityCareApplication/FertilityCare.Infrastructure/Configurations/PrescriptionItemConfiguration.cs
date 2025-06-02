@@ -17,26 +17,34 @@ public class PrescriptionItemConfiguration : IEntityTypeConfiguration<Prescripti
 
         builder.HasKey(pi => pi.Id);
 
-        builder.Property(pi => pi.Id).UseIdentityColumn(1000, 1);
+        builder.Property(pi => pi.Id)
+               .UseIdentityColumn(1000, 1);
 
-        builder.Property(pi => pi.MedicationName).IsRequired();
+        builder.Property(pi => pi.MedicationName)
+               .IsRequired()
+               .HasMaxLength(255);
 
-        builder.Property(pi => pi.Dosage).HasColumnType("NVARCHAR(255)");
+        builder.Property(pi => pi.Dosage)
+               .HasColumnType("NVARCHAR(255)");
 
-        builder.Property(pi => pi.StartDate).HasColumnType("DATE").HasDefaultValueSql("GETDATE()");
+        builder.Property(pi => pi.StartDate)
+               .HasColumnType("DATE")
+               .HasDefaultValueSql("GETDATE()");
 
-        builder.Property(pi => pi.EndDate).HasColumnType("DATE");
+        builder.Property(pi => pi.EndDate)
+               .HasColumnType("DATE");
 
-        builder.Property(pi => pi.Quantity).HasDefaultValue(1);
+        builder.Property(pi => pi.Quantity)
+               .HasDefaultValue(1);
 
-        builder.Property(pi => pi.SpecialInstructions).HasColumnType("NTEXT");
+        builder.Property(pi => pi.SpecialInstructions)
+               .HasColumnType("NTEXT");
 
-        builder.HasOne<Prescription>()
-            .WithMany(x => x.PrescriptionItems)
-            .HasForeignKey(pi => pi.PrescriptionId)
-            .OnDelete(DeleteBehavior.NoAction)
-            .HasConstraintName("FK_PrescriptionItem_Prescription");
-
+        builder.HasOne(pi => pi.Prescription)
+               .WithMany(p => p.PrescriptionItems)
+               .HasForeignKey(pi => pi.PrescriptionId)
+               .OnDelete(DeleteBehavior.NoAction)
+               .HasConstraintName("FK_PrescriptionItem_Prescription");
     }
 }
 

@@ -13,15 +13,21 @@ public class EmbryoDetail
 
     public Guid EmbryoFertilizationId { get; set; }
 
+    public virtual EmbryoFertilization EmbryoFertilization { get; set; }
+
+    public Guid TreatmentPlanId { get; set; }
+
+    public virtual TreatmentPlan TreatmentPlan { get; set; }
+
     public string Grade { get; set; }
 
-    public bool? IsViable { get; set; }
+    public bool IsViable { get; set; } = true;
 
-    public EmbryoStatus Status { get; set; }
+    public EmbryoStatus Status { get; set; } = EmbryoStatus.Available;
 
-    public string? Notes { get; set; }
+    public string? Note { get; set; }
 
-    public DateTime CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
 
     public DateTime? UpdatedAt { get; set; }
 

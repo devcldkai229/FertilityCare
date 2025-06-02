@@ -23,15 +23,11 @@ public class Doctor
 
     public string? Biography { get; set; } = "#NoData";
 
-    public string? Education { get; set; } = "#NoData";
-
     public decimal? Rating { get; set; } = 0;
 
     public int? PatientsServed { get; set; } = 0;
 
-    public bool? IsAcceptingPatients { get; set; } = true;
-
-    public virtual List<DoctorSchedule>? DoctorSchedules { get; set; } = null;
+    public virtual List<DoctorSchedule> DoctorSchedules { get; set; }
 
 }
     

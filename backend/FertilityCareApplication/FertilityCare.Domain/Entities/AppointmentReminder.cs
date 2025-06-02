@@ -15,22 +15,22 @@ public class AppointmentReminder
 
     public virtual Appointment Appointment { get; set; }
 
-    public Guid PatientId { get; set; }
+    public string ToEmailAddress { get; set; }
 
-    public virtual Patient Patient { get; set; }
+    public string? ToPhoneNumber { get; set; } = "#NoData";
 
     public DateTime? ReminderDate { get; set; }
 
-    public string? ReminderMethod { get; set; }
+    public string ReminderMethod { get; set; } = "Email";
 
-    public bool IsSent { get; set; }
+    public bool IsSent { get; set; } = false;
 
-    public DateTime? SentAt { get; set; }
+    public AppointmentReminderStatus Status { get; set; } = AppointmentReminderStatus.Pending;
 
-    public AppointmentReminderStatus? Status { get; set; }
+    public string? Note { get; set; } = "";
 
-    public string? Note { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-    public DateTime? CreatedAt { get; set; }
+    public DateTime? UpdatedAt { get; set; }
 
 }

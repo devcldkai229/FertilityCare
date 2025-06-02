@@ -1,6 +1,0 @@
-@FertilityCare.API_HostAddress = http://localhost:5244
-
-GET {{FertilityCare.API_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

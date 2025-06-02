@@ -26,11 +26,12 @@ public class TestResultConfiguration : IEntityTypeConfiguration<TestResult>
 
         builder.Property(x => x.TestDate).HasColumnType("DATETIME").HasDefaultValueSql("GETDATE()");
 
-        builder.HasOne(x => x.ServicePackagePlan)
+        builder.HasOne(x => x.TreatmentPlan)
             .WithMany()
-            .HasForeignKey(x => x.ServicePackagePlanId)
+            .HasForeignKey(x => x.TreatmentPlanId)
             .OnDelete(DeleteBehavior.NoAction)
             .HasConstraintName("FK_TestResult_ServicePackagePlan");
+
 
     }
 }

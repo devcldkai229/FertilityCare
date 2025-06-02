@@ -25,12 +25,6 @@ public class UserProfile
 
     public string? Address { get; set; }
 
-    public string? City { get; set; }
-
-    public string? Province { get; set; }
-
-    public string? Country { get; set; }
-
     public string? AvatarUrl { get; set; }
 
     public DateTime? CreatedAt { get; set; }

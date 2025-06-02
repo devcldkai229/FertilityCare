@@ -35,13 +35,16 @@ namespace FertilityCare.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("BookingEmail")
-                        .HasColumnType("NVARCHAR(MAX)");
+                        .HasMaxLength(256)
+                        .HasColumnType("NVARCHAR");
 
                     b.Property<string>("BookingPhone")
-                        .HasColumnType("NVARCHAR(12)");
+                        .HasMaxLength(12)
+                        .HasColumnType("NVARCHAR");
 
                     b.Property<string>("CancellationReason")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(512)
+                        .HasColumnType("NVARCHAR");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
@@ -51,10 +54,10 @@ namespace FertilityCare.Infrastructure.Migrations
                     b.Property<Guid>("DoctorId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<long>("DoctorScheduleId")
+                    b.Property<long?>("DoctorScheduleId")
                         .HasColumnType("bigint");
 
-                    b.Property<TimeOnly?>("EndTime")
+                    b.Property<TimeOnly>("EndTime")
                         .HasColumnType("TIME");
 
                     b.Property<string>("Note")
@@ -63,10 +66,7 @@ namespace FertilityCare.Infrastructure.Migrations
                     b.Property<Guid>("PatientId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Purpose")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<TimeOnly?>("StartTime")
+                    b.Property<TimeOnly>("StartTime")
                         .HasColumnType("TIME");
 
                     b.Property<int>("Status")
@@ -76,6 +76,7 @@ namespace FertilityCare.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("UpdatedAt")
+                        .ValueGeneratedOnUpdate()
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -102,7 +103,7 @@ namespace FertilityCare.Infrastructure.Migrations
                     b.Property<Guid>("AppointmentId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("CreatedAt")
+                    b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("DATETIME")
                         .HasDefaultValueSql("GETDATE()");
@@ -115,26 +116,29 @@ namespace FertilityCare.Infrastructure.Migrations
                     b.Property<string>("Note")
                         .HasColumnType("NTEXT");
 
-                    b.Property<Guid>("PatientId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime?>("ReminderDate")
                         .HasColumnType("DATETIME");
 
                     b.Property<string>("ReminderMethod")
+                        .IsRequired()
                         .HasColumnType("NVARCHAR(100)");
 
-                    b.Property<DateTime>("SentAt")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<int?>("Status")
+                    b.Property<int>("Status")
                         .HasColumnType("int");
+
+                    b.Property<string>("ToEmailAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ToPhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AppointmentId");
-
-                    b.HasIndex("PatientId");
 
                     b.ToTable("AppointmentReminder", (string)null);
                 });
@@ -152,18 +156,22 @@ namespace FertilityCare.Infrastructure.Migrations
                         .HasColumnType("ntext");
 
                     b.Property<string>("FeaturedImageUrl")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MetaDescription")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MetaKeywords")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Status")
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<string>("Summary")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
@@ -172,11 +180,6 @@ namespace FertilityCare.Infrastructure.Migrations
 
                     b.Property<Guid>("UserProfileId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("ViewCount")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
 
                     b.HasKey("Id");
 
@@ -197,14 +200,6 @@ namespace FertilityCare.Infrastructure.Migrations
 
                     b.Property<string>("Degree")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Education")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool?>("IsAcceptingPatients")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
 
                     b.Property<int?>("PatientsServed")
                         .ValueGeneratedOnAdd()
@@ -247,16 +242,11 @@ namespace FertilityCare.Infrastructure.Migrations
                     b.Property<Guid>("DoctorId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("DoctorId1")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<TimeOnly>("EndTime")
                         .HasColumnType("TIME");
 
-                    b.Property<bool>("IsAvailable")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
+                    b.Property<bool>("IsAcceptingPatients")
+                        .HasColumnType("bit");
 
                     b.Property<int?>("MaxAppointments")
                         .ValueGeneratedOnAdd()
@@ -279,8 +269,6 @@ namespace FertilityCare.Infrastructure.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.HasIndex("DoctorId1");
-
                     b.ToTable("DoctorSchedule", (string)null);
                 });
 
@@ -291,7 +279,7 @@ namespace FertilityCare.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NEWID()");
 
-                    b.Property<int?>("AbnormalEggs")
+                    b.Property<int>("AbnormalEggs")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasDefaultValue(0);
@@ -299,36 +287,32 @@ namespace FertilityCare.Infrastructure.Migrations
                     b.Property<int>("CycleNumber")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("DoctorId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("ImmatureEggs")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
-                    b.Property<string>("DoctorNotes")
+                    b.Property<int>("MatureEggs")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.Property<string>("Note")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ImmatureEggs")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
-
-                    b.Property<int?>("MatureEggs")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
 
                     b.Property<DateTime>("RetrievalDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("ServicePackagePlanId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("TotalEggsRetrieved")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("TreatmentPlanId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("DoctorId");
-
-                    b.HasIndex("ServicePackagePlanId");
+                    b.HasIndex("TreatmentPlanId");
 
                     b.ToTable("EggRetrievalCycle", (string)null);
                 });
@@ -351,25 +335,31 @@ namespace FertilityCare.Infrastructure.Migrations
                     b.Property<string>("Grade")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("NVARCHAR");
 
-                    b.Property<bool?>("IsViable")
+                    b.Property<bool>("IsViable")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(true);
 
-                    b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Note")
+                        .HasColumnType("NTEXT");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("TreatmentPlanId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime?>("UpdatedAt")
+                        .ValueGeneratedOnUpdate()
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("EmbryoFertilizationId");
+
+                    b.HasIndex("TreatmentPlanId");
 
                     b.ToTable("EmbryoDetail", (string)null);
                 });
@@ -386,17 +376,16 @@ namespace FertilityCare.Infrastructure.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<Guid>("DoctorId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("EggRetrievalCycleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("EmbryologistNotes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateOnly>("FertilizationDate")
+                    b.Property<DateTime>("FertilizationDate")
                         .HasColumnType("date");
+
+                    b.Property<string>("FertilizationMethod")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("NVARCHAR");
 
                     b.Property<int?>("TotalEggsFertilized")
                         .ValueGeneratedOnAdd()
@@ -411,14 +400,18 @@ namespace FertilityCare.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasDefaultValue(0);
 
+                    b.Property<Guid>("TreatmentPlanId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime?>("UpdatedAt")
+                        .ValueGeneratedOnUpdate()
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DoctorId");
-
                     b.HasIndex("EggRetrievalCycleId");
+
+                    b.HasIndex("TreatmentPlanId");
 
                     b.ToTable("EmbryoFertilization", (string)null);
                 });
@@ -430,7 +423,9 @@ namespace FertilityCare.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("DATETIME");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("DATETIME")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<Guid>("DoctorId")
                         .HasColumnType("uniqueidentifier");
@@ -442,21 +437,30 @@ namespace FertilityCare.Infrastructure.Migrations
                         .HasColumnType("DECIMAL(10,2)");
 
                     b.Property<bool>("IsFrozenTransfer")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
-                    b.Property<bool?>("IsSuccessful")
-                        .HasColumnType("bit");
+                    b.Property<bool>("IsSuccessful")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<string>("Note")
+                        .IsRequired()
                         .HasColumnType("NTEXT");
 
                     b.Property<string>("PregnancyResultNote")
+                        .IsRequired()
                         .HasColumnType("NTEXT");
 
                     b.Property<DateTime>("TransferDate")
                         .HasColumnType("DATETIME");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<Guid>("TreatmentPlanId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("DATETIME");
 
                     b.HasKey("Id");
@@ -465,7 +469,9 @@ namespace FertilityCare.Infrastructure.Migrations
 
                     b.HasIndex("EmbryoDetailId");
 
-                    b.ToTable("EmbryoTransfer");
+                    b.HasIndex("TreatmentPlanId");
+
+                    b.ToTable("EmbryoTransfer", (string)null);
                 });
 
             modelBuilder.Entity("FertilityCare.Domain.Entities.Feedback", b =>
@@ -476,11 +482,12 @@ namespace FertilityCare.Infrastructure.Migrations
                         .HasDefaultValueSql("NEWID()");
 
                     b.Property<string>("Comment")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime")
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<Guid>("DoctorId")
@@ -491,34 +498,28 @@ namespace FertilityCare.Infrastructure.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
-                    b.Property<decimal?>("PrivacyRating")
-                        .HasColumnType("decimal(3,1)");
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Rating")
                         .HasColumnType("decimal(3,1)");
 
-                    b.Property<Guid>("ServicePackagePlanId")
+                    b.Property<Guid>("TreatmentPlanId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<decimal?>("TreatmentQualityRating")
+                    b.Property<decimal>("TreatmentQualityRating")
                         .HasColumnType("decimal(3,1)");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("UserProfileId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("datetime");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DoctorId");
 
-                    b.HasIndex("ServicePackagePlanId");
+                    b.HasIndex("PatientId");
 
-                    b.HasIndex("UserProfileId");
+                    b.HasIndex("TreatmentPlanId");
 
                     b.ToTable("Feedback", (string)null);
                 });
@@ -530,9 +531,9 @@ namespace FertilityCare.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NEWID()");
 
-                    b.Property<DateTime?>("CreatedAt")
+                    b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime")
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<Guid>("EmbryoDetailId")
@@ -542,34 +543,42 @@ namespace FertilityCare.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal?>("MonthlyStorageFee")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(10,2)");
 
-                    b.Property<string>("Notes")
+                    b.Property<string>("Note")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("StorageEndDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<DateTime>("StorageStartDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("StorageTank")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<bool?>("SurvivalAfterThaw")
-                        .HasColumnType("bit");
+                    b.Property<bool>("SurvivalAfterThaw")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<Guid>("TreatmentPlanId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.HasKey("Id");
 
                     b.HasIndex("EmbryoDetailId");
+
+                    b.HasIndex("TreatmentPlanId");
 
                     b.ToTable("FrozenEmbryoStorage", (string)null);
                 });
@@ -581,78 +590,53 @@ namespace FertilityCare.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NEWID()");
 
-                    b.Property<string>("Context")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<decimal?>("Duration")
                         .HasColumnType("decimal(10,2)");
 
                     b.Property<string>("FileName")
+                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("FileType")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Folder")
+                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Format")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<int?>("Height")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsPublic")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<string>("MimeType")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<Guid?>("OwnerId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("OwnerType")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<string>("PublicId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RelatedEntityId")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
-                        .HasDefaultValue("#NoData");
-
-                    b.Property<string>("RelatedEntityType")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
-                        .HasDefaultValue("#NoData");
-
                     b.Property<string>("ResourceType")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("SecureUrl")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("Size")
+                    b.Property<long>("Size")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Tags")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Transformation")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UploadedAt")
@@ -661,6 +645,7 @@ namespace FertilityCare.Infrastructure.Migrations
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("Url")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Width")
@@ -673,83 +658,12 @@ namespace FertilityCare.Infrastructure.Migrations
                     b.ToTable("MediaFile", (string)null);
                 });
 
-            modelBuilder.Entity("FertilityCare.Domain.Entities.MonitorReminder", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1000L);
-
-                    b.Property<DateTime?>("CompletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("DATETIME")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("NTEXT");
-
-                    b.Property<bool>("IsComplete")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("BIT")
-                        .HasDefaultValue(false);
-
-                    b.Property<Guid>("PatientId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("RecurrencePattern")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ReminderDate")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<int>("ReminderType")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("SenderId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("ServicePackagePlanId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("NVARCHAR(255)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PatientId");
-
-                    b.HasIndex("SenderId");
-
-                    b.HasIndex("ServicePackagePlanId");
-
-                    b.ToTable("MonitorReminder", (string)null);
-                });
-
             modelBuilder.Entity("FertilityCare.Domain.Entities.Patient", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NEWID()");
-
-                    b.Property<string>("AllergiesNotes")
-                        .HasColumnType("NTEXT");
-
-                    b.Property<string>("BloodType")
-                        .HasColumnType("NVARCHAR(20)");
-
-                    b.Property<string>("FertilityDiagnosis")
-                        .HasColumnType("NVARCHAR(MAX)");
-
-                    b.Property<decimal?>("Height")
-                        .HasColumnType("DECIMAL(5,2)");
-
-                    b.Property<string>("MaritalStatus")
-                        .HasColumnType("NVARCHAR(50)");
 
                     b.Property<string>("MedicalHistory")
                         .HasColumnType("NTEXT");
@@ -762,9 +676,6 @@ namespace FertilityCare.Infrastructure.Migrations
 
                     b.Property<Guid>("UserProfileId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal?>("Weight")
-                        .HasColumnType("DECIMAL(5,2)");
 
                     b.HasKey("Id");
 
@@ -784,12 +695,6 @@ namespace FertilityCare.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NEWID()");
 
-                    b.Property<string>("BloodType")
-                        .HasColumnType("NVARCHAR(20)");
-
-                    b.Property<string>("ContactNumber")
-                        .HasColumnType("NVARCHAR(20)");
-
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("DATETIME")
@@ -808,8 +713,8 @@ namespace FertilityCare.Infrastructure.Migrations
                     b.Property<int?>("Gender")
                         .HasColumnType("int");
 
-                    b.Property<string>("MedicalHistory")
-                        .HasColumnType("NTEXT");
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("DATETIME");
@@ -817,75 +722,6 @@ namespace FertilityCare.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PatientPartner", (string)null);
-                });
-
-            modelBuilder.Entity("FertilityCare.Domain.Entities.Payment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("DECIMAL(18,2)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<string>("Notes")
-                        .HasColumnType("NTEXT");
-
-                    b.Property<string>("PaymentCode")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<DateTime>("PaymentDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("PaymentMethodId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal?>("RefundAmount")
-                        .HasColumnType("DECIMAL(18,2)");
-
-                    b.Property<DateTime?>("RefundDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("RefundReason")
-                        .HasColumnType("NVARCHAR(MAX)");
-
-                    b.Property<Guid?>("ServicePackagePlanId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("TransactionCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("UserProfileId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PaymentCode")
-                        .IsUnique()
-                        .HasFilter("[PaymentCode] IS NOT NULL");
-
-                    b.HasIndex("PaymentMethodId");
-
-                    b.HasIndex("ServicePackagePlanId");
-
-                    b.HasIndex("UserProfileId");
-
-                    b.ToTable("Payment", (string)null);
                 });
 
             modelBuilder.Entity("FertilityCare.Domain.Entities.PaymentMethod", b =>
@@ -896,6 +732,7 @@ namespace FertilityCare.Infrastructure.Migrations
                         .HasDefaultValueSql("NEWID()");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("NVARCHAR(MAX)");
 
                     b.Property<bool>("IsActive")
@@ -918,10 +755,8 @@ namespace FertilityCare.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("ExpiryDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Note")
+                        .IsRequired()
                         .HasColumnType("NTEXT");
 
                     b.Property<DateTime>("PrescriptionDate")
@@ -929,15 +764,12 @@ namespace FertilityCare.Infrastructure.Migrations
                         .HasColumnType("DATETIME")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<Guid?>("ServicePackagePlanId")
+                    b.Property<Guid>("TreatmentPlanId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ServicePackagePlanId");
+                    b.HasIndex("TreatmentPlanId");
 
                     b.ToTable("Prescription", (string)null);
                 });
@@ -951,6 +783,7 @@ namespace FertilityCare.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1000L);
 
                     b.Property<string>("Dosage")
+                        .IsRequired()
                         .HasColumnType("NVARCHAR(255)");
 
                     b.Property<DateOnly?>("EndDate")
@@ -958,17 +791,19 @@ namespace FertilityCare.Infrastructure.Migrations
 
                     b.Property<string>("MedicationName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<Guid>("PrescriptionId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("Quantity")
+                    b.Property<int>("Quantity")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasDefaultValue(1);
 
                     b.Property<string>("SpecialInstructions")
+                        .IsRequired()
                         .HasColumnType("NTEXT");
 
                     b.Property<DateOnly>("StartDate")
@@ -983,149 +818,6 @@ namespace FertilityCare.Infrastructure.Migrations
                     b.ToTable("PrescriptionItem", (string)null);
                 });
 
-            modelBuilder.Entity("FertilityCare.Domain.Entities.ServicePackagePlan", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("DATETIME")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<Guid>("DoctorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateOnly?>("EndDate")
-                        .HasColumnType("DATE");
-
-                    b.Property<string>("Note")
-                        .HasColumnType("NTEXT");
-
-                    b.Property<Guid>("PatientId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("PaymentStatus")
-                        .HasColumnType("int");
-
-                    b.Property<DateOnly>("StartDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("DATE")
-                        .HasDefaultValueSql("GETDATE()");
-
-                    b.Property<int?>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<decimal?>("TotalCost")
-                        .HasColumnType("DECIMAL(18,2)");
-
-                    b.Property<Guid>("TreatmentServiceId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DoctorId");
-
-                    b.HasIndex("PatientId");
-
-                    b.HasIndex("TreatmentServiceId");
-
-                    b.ToTable("ServicePackagePlan", (string)null);
-                });
-
-            modelBuilder.Entity("FertilityCare.Domain.Entities.ServicePackagePlanExtension", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1000L);
-
-                    b.Property<DateTime?>("CompletedAt")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<DateTime?>("EndDate")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<decimal?>("ExtraFee")
-                        .HasColumnType("DECIMAL(18,2)");
-
-                    b.Property<bool?>("IsComplete")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<string>("Note")
-                        .HasColumnType("NTEXT");
-
-                    b.Property<string>("Reason")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("ServicePackagePlanId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<string>("StepName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ServicePackagePlanId");
-
-                    b.ToTable("ServicePackagePlanExtension", (string)null);
-                });
-
-            modelBuilder.Entity("FertilityCare.Domain.Entities.ServicePackagePlanStep", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1000L);
-
-                    b.Property<DateTime?>("CompletedAt")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<DateTime?>("EndDate")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<bool?>("IsComplete")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<string>("Note")
-                        .HasColumnType("NTEXT");
-
-                    b.Property<Guid>("ServicePackagePlanId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<long?>("TreatmentStepId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ServicePackagePlanId");
-
-                    b.HasIndex("TreatmentStepId");
-
-                    b.ToTable("ServicePackagePlanStep", (string)null);
-                });
-
             modelBuilder.Entity("FertilityCare.Domain.Entities.TestResult", b =>
                 {
                     b.Property<long>("Id")
@@ -1137,16 +829,11 @@ namespace FertilityCare.Infrastructure.Migrations
                     b.Property<string>("Note")
                         .HasColumnType("NTEXT");
 
-                    b.Property<string>("ResultValue")
+                    b.Property<string>("Result")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("ServicePackagePlanId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("TestCategory")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("TestDate")
+                    b.Property<DateTime>("TestDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("DATETIME")
                         .HasDefaultValueSql("GETDATE()");
@@ -1155,9 +842,12 @@ namespace FertilityCare.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("TreatmentPlanId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ServicePackagePlanId");
+                    b.HasIndex("TreatmentPlanId");
 
                     b.ToTable("TestResult", (string)null);
                 });
@@ -1178,21 +868,80 @@ namespace FertilityCare.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("NTEXT");
 
-                    b.Property<bool>("IsActive")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("NVARCHAR(255)");
+
+                    b.Property<DateTime>("UpdateAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.ToTable("TreatmentCategory", (string)null);
                 });
 
-            modelBuilder.Entity("FertilityCare.Domain.Entities.TreatmentProgressReport", b =>
+            modelBuilder.Entity("FertilityCare.Domain.Entities.TreatmentPayment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("NEWID()");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("DECIMAL(18,2)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<string>("Note")
+                        .IsRequired()
+                        .HasColumnType("NTEXT");
+
+                    b.Property<string>("PaymentCode")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("PaymentMethodId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TransactionCode")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<long>("TreatmentPlanStepId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("UserProfileId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PaymentCode")
+                        .IsUnique();
+
+                    b.HasIndex("PaymentMethodId");
+
+                    b.HasIndex("TreatmentPlanStepId");
+
+                    b.HasIndex("UserProfileId");
+
+                    b.ToTable("TreatmentPayment", (string)null);
+                });
+
+            modelBuilder.Entity("FertilityCare.Domain.Entities.TreatmentPlan", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -1207,28 +956,98 @@ namespace FertilityCare.Infrastructure.Migrations
                     b.Property<Guid>("DoctorId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("NextSteps")
-                        .IsRequired()
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("DATE");
+
+                    b.Property<string>("Note")
                         .HasColumnType("NTEXT");
 
-                    b.Property<string>("OverallAssessment")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("ReportDate")
+                    b.Property<int>("PaymentStatus")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StartDate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("DATETIME")
+                        .HasColumnType("DATE")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<Guid>("ServicePackagePlanId")
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("TotalPrice")
+                        .HasColumnType("DECIMAL(18,2)");
+
+                    b.Property<Guid>("TreatmentServiceId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DoctorId");
 
-                    b.HasIndex("ServicePackagePlanId");
+                    b.HasIndex("PatientId");
 
-                    b.ToTable("TreatmentProgressReport", (string)null);
+                    b.HasIndex("TreatmentServiceId");
+
+                    b.ToTable("TreatmentPlan", (string)null);
+                });
+
+            modelBuilder.Entity("FertilityCare.Domain.Entities.TreatmentPlanStep", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1000L);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("DATETIME")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("DATE");
+
+                    b.Property<bool>("IsCompleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("Note")
+                        .IsRequired()
+                        .HasColumnType("NTEXT");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("DATE");
+
+                    b.Property<int>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1);
+
+                    b.Property<decimal>("StepPrice")
+                        .HasColumnType("DECIMAL(18,2)");
+
+                    b.Property<Guid>("TreatmentPlanId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<long>("TreatmentStepId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("DATETIME");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TreatmentPlanId");
+
+                    b.HasIndex("TreatmentStepId");
+
+                    b.ToTable("TreatmentPlanStep", (string)null);
                 });
 
             modelBuilder.Entity("FertilityCare.Domain.Entities.TreatmentService", b =>
@@ -1238,53 +1057,42 @@ namespace FertilityCare.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NEWID()");
 
-                    b.Property<decimal>("BasicPrice")
-                        .HasColumnType("DECIMAL(18,2)");
-
                     b.Property<string>("Contraindications")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("NVARCHAR(MAX)");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
+                        .HasColumnType("DATETIME")
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("Description")
                         .HasColumnType("NTEXT");
 
                     b.Property<int?>("Duration")
-                        .HasColumnType("int");
+                        .HasColumnType("INT");
 
-                    b.Property<bool>("IsActive")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
-
-                    b.Property<int?>("MaxAge")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MinAge")
-                        .HasColumnType("int");
+                    b.Property<decimal?>("EstimatePrice")
+                        .HasColumnType("DECIMAL(18,2)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("NVARCHAR(MAX)");
 
                     b.Property<string>("RecommendedFor")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("NVARCHAR(MAX)");
 
                     b.Property<decimal?>("SuccessRate")
                         .HasColumnType("DECIMAL(5,2)");
 
-                    b.Property<Guid>("TreamentCategoryId")
+                    b.Property<Guid>("TreatmentCategoryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("DATETIME");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TreamentCategoryId");
+                    b.HasIndex("TreatmentCategoryId");
 
                     b.ToTable("TreatmentService", (string)null);
                 });
@@ -1302,16 +1110,6 @@ namespace FertilityCare.Infrastructure.Migrations
 
                     b.Property<int?>("EstimatedDurationDays")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsActive")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
-
-                    b.Property<bool>("IsOptional")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
 
                     b.Property<string>("StepName")
                         .IsRequired()
@@ -1345,12 +1143,6 @@ namespace FertilityCare.Infrastructure.Migrations
                     b.Property<string>("AvatarUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("City")
-                        .HasColumnType("NVARCHAR(255)");
-
-                    b.Property<string>("Country")
-                        .HasColumnType("NVARCHAR(255)");
-
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
@@ -1369,9 +1161,6 @@ namespace FertilityCare.Infrastructure.Migrations
                         .HasColumnType("NVARCHAR(255)");
 
                     b.Property<string>("MiddleName")
-                        .HasColumnType("NVARCHAR(255)");
-
-                    b.Property<string>("Province")
                         .HasColumnType("NVARCHAR(255)");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -1597,7 +1386,6 @@ namespace FertilityCare.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("DoctorScheduleId")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
                         .HasConstraintName("FK_Appointment_DoctorSchedule");
 
                     b.HasOne("FertilityCare.Domain.Entities.Patient", "Patient")
@@ -1631,16 +1419,7 @@ namespace FertilityCare.Infrastructure.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_AppointmentReminder_Appointment");
 
-                    b.HasOne("FertilityCare.Domain.Entities.Patient", "Patient")
-                        .WithMany()
-                        .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
-                        .HasConstraintName("FK_AppointmentReminder_Patient");
-
                     b.Navigation("Appointment");
-
-                    b.Navigation("Patient");
                 });
 
             modelBuilder.Entity("FertilityCare.Domain.Entities.Blog", b =>
@@ -1669,57 +1448,51 @@ namespace FertilityCare.Infrastructure.Migrations
 
             modelBuilder.Entity("FertilityCare.Domain.Entities.DoctorSchedule", b =>
                 {
-                    b.HasOne("FertilityCare.Domain.Entities.Doctor", null)
-                        .WithMany()
+                    b.HasOne("FertilityCare.Domain.Entities.Doctor", "Doctor")
+                        .WithMany("DoctorSchedules")
                         .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("FK_DoctorSchedule_Doctor");
 
-                    b.HasOne("FertilityCare.Domain.Entities.Doctor", null)
-                        .WithMany("DoctorSchedules")
-                        .HasForeignKey("DoctorId1");
+                    b.Navigation("Doctor");
                 });
 
             modelBuilder.Entity("FertilityCare.Domain.Entities.EggRetrievalCycle", b =>
                 {
-                    b.HasOne("FertilityCare.Domain.Entities.Doctor", "Doctor")
+                    b.HasOne("FertilityCare.Domain.Entities.TreatmentPlan", "TreatmentPlan")
                         .WithMany()
-                        .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .HasConstraintName("FK_EggRetrievalCycle_Doctor");
-
-                    b.HasOne("FertilityCare.Domain.Entities.ServicePackagePlan", "ServicePackagePlan")
-                        .WithMany()
-                        .HasForeignKey("ServicePackagePlanId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .HasForeignKey("TreatmentPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("FK_EggRetrievalCycle_ServicePackagePlan");
 
-                    b.Navigation("Doctor");
-
-                    b.Navigation("ServicePackagePlan");
+                    b.Navigation("TreatmentPlan");
                 });
 
             modelBuilder.Entity("FertilityCare.Domain.Entities.EmbryoDetail", b =>
                 {
-                    b.HasOne("FertilityCare.Domain.Entities.EmbryoFertilization", null)
+                    b.HasOne("FertilityCare.Domain.Entities.EmbryoFertilization", "EmbryoFertilization")
                         .WithMany()
                         .HasForeignKey("EmbryoFertilizationId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
                         .HasConstraintName("FK_EmbryoDetail_EmbryoFertilization");
+
+                    b.HasOne("FertilityCare.Domain.Entities.TreatmentPlan", "TreatmentPlan")
+                        .WithMany()
+                        .HasForeignKey("TreatmentPlanId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("FK_EmbryoDetail_TreatmentPlan");
+
+                    b.Navigation("EmbryoFertilization");
+
+                    b.Navigation("TreatmentPlan");
                 });
 
             modelBuilder.Entity("FertilityCare.Domain.Entities.EmbryoFertilization", b =>
                 {
-                    b.HasOne("FertilityCare.Domain.Entities.Doctor", "Doctor")
-                        .WithMany()
-                        .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
-                        .HasConstraintName("FK_EmbryoFertilization_Doctor");
-
                     b.HasOne("FertilityCare.Domain.Entities.EggRetrievalCycle", "EggRetrievalCycle")
                         .WithMany()
                         .HasForeignKey("EggRetrievalCycleId")
@@ -1727,9 +1500,16 @@ namespace FertilityCare.Infrastructure.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_EmbryoFertilization_EggRetrievalCycle");
 
-                    b.Navigation("Doctor");
+                    b.HasOne("FertilityCare.Domain.Entities.TreatmentPlan", "TreatmentPlan")
+                        .WithMany()
+                        .HasForeignKey("TreatmentPlanId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("FK_EmbryoFertilization_TreatmentPlan");
 
                     b.Navigation("EggRetrievalCycle");
+
+                    b.Navigation("TreatmentPlan");
                 });
 
             modelBuilder.Entity("FertilityCare.Domain.Entities.EmbryoTransfer", b =>
@@ -1748,7 +1528,16 @@ namespace FertilityCare.Infrastructure.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_EmbryoTransfer_EmbryoDetail");
 
+                    b.HasOne("FertilityCare.Domain.Entities.TreatmentPlan", "TreatmentPlan")
+                        .WithMany()
+                        .HasForeignKey("TreatmentPlanId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("FK_EmbryoTransfer_TreatmentPlan");
+
                     b.Navigation("EmbryoDetail");
+
+                    b.Navigation("TreatmentPlan");
                 });
 
             modelBuilder.Entity("FertilityCare.Domain.Entities.Feedback", b =>
@@ -1757,25 +1546,28 @@ namespace FertilityCare.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_Feedback_Doctor");
 
-                    b.HasOne("FertilityCare.Domain.Entities.ServicePackagePlan", "ServicePackagePlan")
+                    b.HasOne("FertilityCare.Domain.Entities.Patient", "Patient")
                         .WithMany()
-                        .HasForeignKey("ServicePackagePlanId")
+                        .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_Feedback_Patient");
 
-                    b.HasOne("FertilityCare.Domain.Entities.UserProfile", "UserProfile")
+                    b.HasOne("FertilityCare.Domain.Entities.TreatmentPlan", "TreatmentPlan")
                         .WithMany()
-                        .HasForeignKey("UserProfileId")
+                        .HasForeignKey("TreatmentPlanId")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_Feedback_TreatmentPlan");
 
                     b.Navigation("Doctor");
 
-                    b.Navigation("ServicePackagePlan");
+                    b.Navigation("Patient");
 
-                    b.Navigation("UserProfile");
+                    b.Navigation("TreatmentPlan");
                 });
 
             modelBuilder.Entity("FertilityCare.Domain.Entities.FrozenEmbryoStorage", b =>
@@ -1787,7 +1579,16 @@ namespace FertilityCare.Infrastructure.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_FrozenEmbryoStorage_EmbryoDetail");
 
+                    b.HasOne("FertilityCare.Domain.Entities.TreatmentPlan", "TreatmentPlan")
+                        .WithMany()
+                        .HasForeignKey("TreatmentPlanId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("FK_FrozenEmbryoStorage_TreatmentPlan");
+
                     b.Navigation("EmbryoDetail");
+
+                    b.Navigation("TreatmentPlan");
                 });
 
             modelBuilder.Entity("FertilityCare.Domain.Entities.MediaFile", b =>
@@ -1797,28 +1598,6 @@ namespace FertilityCare.Infrastructure.Migrations
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .HasConstraintName("FK_MediaFile_UserProfile");
-                });
-
-            modelBuilder.Entity("FertilityCare.Domain.Entities.MonitorReminder", b =>
-                {
-                    b.HasOne("FertilityCare.Domain.Entities.Patient", null)
-                        .WithMany()
-                        .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
-                        .HasConstraintName("FK_MonitorReminder_Patient");
-
-                    b.HasOne("FertilityCare.Domain.Entities.UserProfile", null)
-                        .WithMany()
-                        .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .HasConstraintName("FK_MonitorReminder_Sender");
-
-                    b.HasOne("FertilityCare.Domain.Entities.ServicePackagePlan", null)
-                        .WithMany()
-                        .HasForeignKey("ServicePackagePlanId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .HasConstraintName("FK_MonitorReminder_ServicePackagePlan");
                 });
 
             modelBuilder.Entity("FertilityCare.Domain.Entities.Patient", b =>
@@ -1842,76 +1621,94 @@ namespace FertilityCare.Infrastructure.Migrations
                     b.Navigation("UserProfile");
                 });
 
-            modelBuilder.Entity("FertilityCare.Domain.Entities.Payment", b =>
+            modelBuilder.Entity("FertilityCare.Domain.Entities.Prescription", b =>
+                {
+                    b.HasOne("FertilityCare.Domain.Entities.TreatmentPlan", "TreatmentPlan")
+                        .WithMany()
+                        .HasForeignKey("TreatmentPlanId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("FK_Prescription_TreatmentPlan");
+
+                    b.Navigation("TreatmentPlan");
+                });
+
+            modelBuilder.Entity("FertilityCare.Domain.Entities.PrescriptionItem", b =>
+                {
+                    b.HasOne("FertilityCare.Domain.Entities.Prescription", "Prescription")
+                        .WithMany("PrescriptionItems")
+                        .HasForeignKey("PrescriptionId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("FK_PrescriptionItem_Prescription");
+
+                    b.Navigation("Prescription");
+                });
+
+            modelBuilder.Entity("FertilityCare.Domain.Entities.TestResult", b =>
+                {
+                    b.HasOne("FertilityCare.Domain.Entities.TreatmentPlan", "TreatmentPlan")
+                        .WithMany()
+                        .HasForeignKey("TreatmentPlanId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("FK_TestResult_ServicePackagePlan");
+
+                    b.Navigation("TreatmentPlan");
+                });
+
+            modelBuilder.Entity("FertilityCare.Domain.Entities.TreatmentPayment", b =>
                 {
                     b.HasOne("FertilityCare.Domain.Entities.PaymentMethod", "PaymentMethod")
                         .WithMany()
                         .HasForeignKey("PaymentMethodId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
-                        .HasConstraintName("FK_Payment_PaymentMethod");
+                        .HasConstraintName("FK_TreatmentPayment_PaymentMethod");
 
-                    b.HasOne("FertilityCare.Domain.Entities.ServicePackagePlan", "ServicePackagePlan")
+                    b.HasOne("FertilityCare.Domain.Entities.TreatmentPlanStep", "TreatmentPlanStep")
                         .WithMany()
-                        .HasForeignKey("ServicePackagePlanId")
+                        .HasForeignKey("TreatmentPlanStepId")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .HasConstraintName("FK_Payment_ServicePackagePlan");
+                        .IsRequired()
+                        .HasConstraintName("FK_TreatmentPayment_TreatmentPlanStep");
 
                     b.HasOne("FertilityCare.Domain.Entities.UserProfile", "UserProfile")
                         .WithMany()
                         .HasForeignKey("UserProfileId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
-                        .HasConstraintName("FK_Payment_UserProfile");
+                        .HasConstraintName("FK_TreatmentPayment_UserProfile");
 
                     b.Navigation("PaymentMethod");
 
-                    b.Navigation("ServicePackagePlan");
+                    b.Navigation("TreatmentPlanStep");
 
                     b.Navigation("UserProfile");
                 });
 
-            modelBuilder.Entity("FertilityCare.Domain.Entities.Prescription", b =>
-                {
-                    b.HasOne("FertilityCare.Domain.Entities.ServicePackagePlan", null)
-                        .WithMany()
-                        .HasForeignKey("ServicePackagePlanId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .HasConstraintName("FK_Prescription_ServicePackagePlan");
-                });
-
-            modelBuilder.Entity("FertilityCare.Domain.Entities.PrescriptionItem", b =>
-                {
-                    b.HasOne("FertilityCare.Domain.Entities.Prescription", null)
-                        .WithMany("PrescriptionItems")
-                        .HasForeignKey("PrescriptionId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
-                        .HasConstraintName("FK_PrescriptionItem_Prescription");
-                });
-
-            modelBuilder.Entity("FertilityCare.Domain.Entities.ServicePackagePlan", b =>
+            modelBuilder.Entity("FertilityCare.Domain.Entities.TreatmentPlan", b =>
                 {
                     b.HasOne("FertilityCare.Domain.Entities.Doctor", "Doctor")
                         .WithMany()
                         .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
-                        .HasConstraintName("FK_ServicePackagePlan_Doctor");
+                        .HasConstraintName("FK_TreatmentPlan_Doctor");
 
                     b.HasOne("FertilityCare.Domain.Entities.Patient", "Patient")
                         .WithMany()
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("FK_ServicePackagePlan_Patient");
+                        .HasConstraintName("FK_TreatmentPlan_Patient");
 
                     b.HasOne("FertilityCare.Domain.Entities.TreatmentService", "TreatmentService")
                         .WithMany()
                         .HasForeignKey("TreatmentServiceId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
-                        .HasConstraintName("FK_ServicePackagePlan_TreatmentService");
+                        .HasConstraintName("FK_TreatmentPlan_TreatmentService");
 
                     b.Navigation("Doctor");
 
@@ -1920,81 +1717,47 @@ namespace FertilityCare.Infrastructure.Migrations
                     b.Navigation("TreatmentService");
                 });
 
-            modelBuilder.Entity("FertilityCare.Domain.Entities.ServicePackagePlanExtension", b =>
+            modelBuilder.Entity("FertilityCare.Domain.Entities.TreatmentPlanStep", b =>
                 {
-                    b.HasOne("FertilityCare.Domain.Entities.ServicePackagePlan", null)
-                        .WithMany()
-                        .HasForeignKey("ServicePackagePlanId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                    b.HasOne("FertilityCare.Domain.Entities.TreatmentPlan", "TreatmentPlan")
+                        .WithMany("TreatmentPlanSteps")
+                        .HasForeignKey("TreatmentPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("FK_ServicePackagePlanExtension_ServicePackagePlan");
-                });
-
-            modelBuilder.Entity("FertilityCare.Domain.Entities.ServicePackagePlanStep", b =>
-                {
-                    b.HasOne("FertilityCare.Domain.Entities.ServicePackagePlan", null)
-                        .WithMany("ServicePackagePlanSteps")
-                        .HasForeignKey("ServicePackagePlanId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
-                        .HasConstraintName("FK_ServicePackagePlanStep_ServicePackagePlan");
+                        .HasConstraintName("FK_TreatmentPlanStep_TreatmentPlan");
 
                     b.HasOne("FertilityCare.Domain.Entities.TreatmentStep", null)
                         .WithMany()
                         .HasForeignKey("TreatmentStepId")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .HasConstraintName("FK_ServicePackagePlanStep_TreatmentStep");
-                });
-
-            modelBuilder.Entity("FertilityCare.Domain.Entities.TestResult", b =>
-                {
-                    b.HasOne("FertilityCare.Domain.Entities.ServicePackagePlan", "ServicePackagePlan")
-                        .WithMany()
-                        .HasForeignKey("ServicePackagePlanId")
-                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
-                        .HasConstraintName("FK_TestResult_ServicePackagePlan");
+                        .HasConstraintName("FK_TreatmentPlanStep_TreatmentStep");
 
-                    b.Navigation("ServicePackagePlan");
-                });
-
-            modelBuilder.Entity("FertilityCare.Domain.Entities.TreatmentProgressReport", b =>
-                {
-                    b.HasOne("FertilityCare.Domain.Entities.Doctor", null)
-                        .WithMany()
-                        .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
-                        .HasConstraintName("FK_TreatmentProgressReport_Doctor");
-
-                    b.HasOne("FertilityCare.Domain.Entities.ServicePackagePlan", null)
-                        .WithMany()
-                        .HasForeignKey("ServicePackagePlanId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
-                        .HasConstraintName("FK_TreatmentProgressReport_ServicePackagePlan");
+                    b.Navigation("TreatmentPlan");
                 });
 
             modelBuilder.Entity("FertilityCare.Domain.Entities.TreatmentService", b =>
                 {
-                    b.HasOne("FertilityCare.Domain.Entities.TreatmentCategory", "TreamentCategory")
+                    b.HasOne("FertilityCare.Domain.Entities.TreatmentCategory", "TreatmentCategory")
                         .WithMany()
-                        .HasForeignKey("TreamentCategoryId")
+                        .HasForeignKey("TreatmentCategoryId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired()
                         .HasConstraintName("FK_TreatmentService_TreatmentCategory");
 
-                    b.Navigation("TreamentCategory");
+                    b.Navigation("TreatmentCategory");
                 });
 
             modelBuilder.Entity("FertilityCare.Domain.Entities.TreatmentStep", b =>
                 {
-                    b.HasOne("FertilityCare.Domain.Entities.TreatmentService", null)
+                    b.HasOne("FertilityCare.Domain.Entities.TreatmentService", "TreatmentService")
                         .WithMany("TreatmentSteps")
                         .HasForeignKey("TreatmentServiceId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("FK_TreatmentStep_TreatmentService");
+
+                    b.Navigation("TreatmentService");
                 });
 
             modelBuilder.Entity("FertilityCare.Infrastructure.Identity.ApplicationUser", b =>
@@ -2067,9 +1830,9 @@ namespace FertilityCare.Infrastructure.Migrations
                     b.Navigation("PrescriptionItems");
                 });
 
-            modelBuilder.Entity("FertilityCare.Domain.Entities.ServicePackagePlan", b =>
+            modelBuilder.Entity("FertilityCare.Domain.Entities.TreatmentPlan", b =>
                 {
-                    b.Navigation("ServicePackagePlanSteps");
+                    b.Navigation("TreatmentPlanSteps");
                 });
 
             modelBuilder.Entity("FertilityCare.Domain.Entities.TreatmentService", b =>

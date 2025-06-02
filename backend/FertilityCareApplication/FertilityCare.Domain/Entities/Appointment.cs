@@ -11,7 +11,7 @@ namespace FertilityCare.Domain.Entities;
 
 public class Appointment
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
 
     public Guid PatientId { get; set; }
 
@@ -21,9 +21,9 @@ public class Appointment
 
     public virtual Doctor Doctor { get; set; }
 
-    public long DoctorScheduleId { get; set; }
+    public long? DoctorScheduleId { get; set; }
 
-    public virtual DoctorSchedule DoctorSchedule { get; set; }
+    public virtual DoctorSchedule? DoctorSchedule { get; set; }
 
     public Guid? TreatmentServiceId { get; set; }
 
@@ -35,13 +35,11 @@ public class Appointment
 
     public DateTime AppointmentDate { get; set; }
 
-    public TimeOnly? StartTime { get; set; }
+    public TimeOnly StartTime { get; set; }
 
-    public TimeOnly? EndTime { get; set; }
+    public TimeOnly EndTime { get; set; }
 
-    public string? Purpose { get; set; }
-
-    public AppointmentStatus Status { get; set; }
+    public AppointmentStatus Status { get; set; } = AppointmentStatus.Scheduled;
 
     public string? CancellationReason { get; set; }
 
@@ -50,6 +48,4 @@ public class Appointment
     public DateTime CreatedAt { get; set; }
 
     public DateTime? UpdatedAt { get; set; }
-
-
 }

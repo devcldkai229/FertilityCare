@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,21 +14,23 @@ public class EmbryoFertilization
 
     public virtual EggRetrievalCycle EggRetrievalCycle { get; set; }
 
+    public Guid TreatmentPlanId { get; set; }
+
+    public virtual TreatmentPlan TreatmentPlan { get; set; }
+
+    public string FertilizationMethod { get; set; } = "#NoData";
+
     public DateOnly FertilizationDate { get; set; }
 
     public int TotalEggsUsed { get; set; }
 
-    public int? TotalEggsFertilized { get; set; }
+    public int? TotalEggsFertilized { get; set; } = 0;
 
-    public int? TotalEmbryosFormed { get; set; }
-
-    public Guid DoctorId { get; set; }
-
-    public string? EmbryologistNotes { get; set; }
+    public int? TotalEmbryosFormed { get; set; } = 0;
 
     public DateTime CreatedAt { get; set; }
 
     public DateTime? UpdatedAt { get; set; }
 
-    public virtual Doctor Doctor { get; set; } = null!;
 }
+

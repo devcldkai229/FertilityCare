@@ -32,8 +32,6 @@ public class DoctorConfiguration : IEntityTypeConfiguration<Doctor>
 
         builder.Property(d => d.Rating).HasColumnType("DECIMAL(3,2)");
 
-        builder.Property(d => d.IsAcceptingPatients).HasDefaultValue(true);
-
         builder.Property(d => d.PatientsServed).HasDefaultValue(0);
     }
 }

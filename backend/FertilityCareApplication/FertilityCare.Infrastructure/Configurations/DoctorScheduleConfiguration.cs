@@ -27,16 +27,15 @@ public class DoctorScheduleConfiguration : IEntityTypeConfiguration<DoctorSchedu
 
         builder.Property(ds => ds.Note).HasColumnType("NTEXT");
 
-        builder.Property(ds => ds.IsAvailable).HasDefaultValue(true);
-
         builder.Property(ds => ds.MaxAppointments).HasDefaultValue(10);
 
         builder.Property(ds => ds.CreatedAt).HasDefaultValueSql("GETDATE()");
 
-        builder.HasOne<Doctor>()
-            .WithMany()
-            .HasForeignKey(ds => ds.DoctorId)
-            .OnDelete(DeleteBehavior.NoAction)
-            .HasConstraintName("FK_DoctorSchedule_Doctor");
+        builder.HasOne(ds => ds.Doctor)
+           .WithMany(d => d.DoctorSchedules)
+           .HasForeignKey(ds => ds.DoctorId)
+           .OnDelete(DeleteBehavior.Cascade)
+           .HasConstraintName("FK_DoctorSchedule_Doctor");
+
     }
 }

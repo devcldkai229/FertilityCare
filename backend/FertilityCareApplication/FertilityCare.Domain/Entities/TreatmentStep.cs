@@ -15,16 +15,14 @@ public class TreatmentStep
 
     public Guid TreatmentServiceId { get; set; }
 
-    public string StepName { get; set; } = null!;
+    public virtual TreatmentService TreatmentService { get; set; }
+
+    public string StepName { get; set; } = "undefined";
 
     public string? Description { get; set; }
 
     public int StepOrder { get; set; }
 
     public int? EstimatedDurationDays { get; set; }
-
-    public bool IsOptional { get; set; }
-
-    public bool IsActive { get; set; }
 
 }

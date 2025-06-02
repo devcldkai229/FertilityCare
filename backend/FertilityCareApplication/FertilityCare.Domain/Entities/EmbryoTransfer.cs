@@ -14,23 +14,27 @@ public class EmbryoTransfer
 
     public virtual EmbryoDetail EmbryoDetail { get; set; }
 
-    public bool IsFrozenTransfer { get; set; }
+    public Guid TreatmentPlanId { get; set; }
 
-    public DateTime TransferDate { get; set; }
+    public virtual TreatmentPlan TreatmentPlan { get; set; }
 
-    public bool? IsSuccessful { get; set; }
+    public bool IsFrozenTransfer { get; set; } = false;
 
-    public string? PregnancyResultNote { get; set; }
+    public DateTime TransferDate { get; set; } = DateTime.Now;
+
+    public bool IsSuccessful { get; set; } = false;
+
+    public string PregnancyResultNote { get; set; } = "";
 
     public Guid DoctorId { get; set; }
 
     public decimal FeeCharged { get; set; }
 
-    public string? Note { get; set; }
+    public string Note { get; set; } = "";
 
-    public DateTime CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-    public DateTime UpdatedAt { get; set; }
+    public DateTime? UpdatedAt { get; set; }
 
 
 

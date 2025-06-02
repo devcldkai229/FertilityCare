@@ -21,12 +21,6 @@ public class PatientPartnerConfiguration : IEntityTypeConfiguration<PatientPartn
 
         builder.Property(p => p.FullName).HasColumnType("NVARCHAR(500)").IsRequired();
 
-        builder.Property(p => p.BloodType).HasColumnType("NVARCHAR(20)");
-
-        builder.Property(p => p.MedicalHistory).HasColumnType("NTEXT");
-
-        builder.Property(p => p.ContactNumber).HasColumnType("NVARCHAR(20)");
-
         builder.Property(p => p.Email).HasColumnType("NVARCHAR(255)");
 
         builder.Property(p => p.CreatedAt).HasColumnType("DATETIME").HasDefaultValueSql("GETDATE()");

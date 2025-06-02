@@ -1,27 +1,25 @@
-﻿using FertilityCare.Domain.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FertilityCare.Domain.Entities;
-
-public class TestResult
+namespace FertilityCare.Domain.Entities
 {
-    public long Id { get; set; }
+    public class TestResult
+    {
+        public long Id { get; set; }
+        
+        public Guid TreatmentPlanId { get; set; }
 
-    public Guid ServicePackagePlanId { get; set; }
+        public virtual TreatmentPlan TreatmentPlan { get; set; }
 
-    public virtual ServicePackagePlan ServicePackagePlan { get; set; } = null!;
+        public string TestName { get; set; } = "undefined";
+        
+        public DateTime TestDate { get; set; }
 
-    public string TestName { get; set; } = null!;
+        public string? Note { get; set; } = "";
 
-    public string? TestCategory { get; set; }
-
-    public string? ResultValue { get; set; }
-
-    public string? Note { get; set; }
-
-    public DateTime? TestDate { get; set; }
+        public string Result { get; set; } = "undefined";
+    }
 }

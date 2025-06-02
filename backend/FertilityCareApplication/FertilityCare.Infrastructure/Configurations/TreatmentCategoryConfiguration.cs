@@ -23,8 +23,6 @@ public class TreatmentCategoryConfiguration : IEntityTypeConfiguration<Treatment
 
         builder.Property(x => x.Description).HasColumnType("NTEXT");
 
-        builder.Property(x => x.IsActive).HasDefaultValue(true);
-
         builder.Property(x => x.CreatedAt).HasDefaultValueSql("GETDATE()");
 
     }

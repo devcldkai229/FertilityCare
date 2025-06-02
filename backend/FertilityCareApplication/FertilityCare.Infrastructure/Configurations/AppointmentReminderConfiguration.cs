@@ -22,15 +22,12 @@ public class AppointmentReminderConfiguration : IEntityTypeConfiguration<Appoint
 
         builder.Property(x => x.AppointmentId).IsRequired();
 
-        builder.Property(x => x.PatientId).IsRequired();
-
         builder.Property(x => x.ReminderDate).HasColumnType("DATETIME");
 
         builder.Property(x => x.ReminderMethod).HasColumnType("NVARCHAR(100)");
 
         builder.Property(x => x.IsSent).HasDefaultValue(false);
 
-        builder.Property(x => x.SentAt).HasColumnType("DATETIME");
 
         builder.Property(x => x.Note).HasColumnType("NTEXT");
 
@@ -41,11 +38,5 @@ public class AppointmentReminderConfiguration : IEntityTypeConfiguration<Appoint
             .HasForeignKey(x => x.AppointmentId)
             .OnDelete(DeleteBehavior.NoAction)
             .HasConstraintName("FK_AppointmentReminder_Appointment");
-
-        builder.HasOne(x => x.Patient)
-            .WithMany()
-            .HasForeignKey(x => x.PatientId)
-            .OnDelete(DeleteBehavior.NoAction)
-            .HasConstraintName("FK_AppointmentReminder_Patient");
     }
 }

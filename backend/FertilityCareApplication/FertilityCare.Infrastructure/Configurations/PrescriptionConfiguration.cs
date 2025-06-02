@@ -8,26 +8,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FertilityCare.Infrastructure.Configurations;
-
-internal class PrescriptionConfiguration : IEntityTypeConfiguration<Prescription>
+namespace FertilityCare.Infrastructure.Configurations
 {
-    public void Configure(EntityTypeBuilder<Prescription> builder)
+    public class PrescriptionConfiguration : IEntityTypeConfiguration<Prescription>
     {
-        builder.ToTable("Prescription");
+        public void Configure(EntityTypeBuilder<Prescription> builder)
+        {
+            builder.ToTable("Prescription");
 
-        builder.HasKey(x => x.Id);
+            builder.HasKey(x => x.Id);
 
-        builder.Property(x => x.Id).ValueGeneratedOnAdd();
+            builder.Property(x => x.Id)
+                   .ValueGeneratedOnAdd();
 
-        builder.Property(x => x.PrescriptionDate).HasColumnType("DATETIME").HasDefaultValueSql("GETDATE()");
+            builder.Property(x => x.PrescriptionDate)
+                   .HasColumnType("DATETIME")
+                   .HasDefaultValueSql("GETDATE()");
 
-        builder.Property(x => x.Note).HasColumnType("NTEXT");
+            builder.Property(x => x.Note)
+                   .HasColumnType("NTEXT");
 
-        builder.HasOne<ServicePackagePlan>()
-            .WithMany()
-            .HasForeignKey(x => x.ServicePackagePlanId)
-            .OnDelete(DeleteBehavior.NoAction)
-            .HasConstraintName("FK_Prescription_ServicePackagePlan");
+            builder.HasOne(x => x.TreatmentPlan)
+                   .WithMany()
+                   .HasForeignKey(x => x.TreatmentPlanId)
+                   .OnDelete(DeleteBehavior.NoAction)
+                   .HasConstraintName("FK_Prescription_TreatmentPlan");
+
+            builder.HasMany(x => x.PrescriptionItems)
+                   .WithOne()
+                   .HasForeignKey("PrescriptionId") 
+                   .OnDelete(DeleteBehavior.Cascade)
+                   .HasConstraintName("FK_PrescriptionItem_Prescription");
+        }
     }
+
 }

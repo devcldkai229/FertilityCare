@@ -16,19 +16,40 @@ public class AppointmentConfiguration : IEntityTypeConfiguration<Appointment>
     {
         builder.ToTable("Appointment");
 
-        builder.Property(x => x.AppointmentDate).IsRequired();
+        builder.HasKey(x => x.Id);
 
-        builder.Property(x => x.BookingEmail).HasColumnType("NVARCHAR(MAX)");
+        builder.Property(x => x.AppointmentDate)
+            .IsRequired();
 
-        builder.Property(x => x.BookingPhone).HasColumnType("NVARCHAR(12)");
+        builder.Property(x => x.StartTime)
+            .IsRequired()
+            .HasColumnType("TIME");
 
-        builder.Property(x => x.StartTime).HasColumnType("TIME");
+        builder.Property(x => x.EndTime)
+            .IsRequired()
+            .HasColumnType("TIME");
 
-        builder.Property(x => x.EndTime).HasColumnType("TIME");
+        builder.Property(x => x.BookingEmail)
+            .HasMaxLength(256)
+            .HasColumnType("NVARCHAR");
 
-        builder.Property(x => x.Note).HasColumnType("NTEXT");
+        builder.Property(x => x.BookingPhone)
+            .HasMaxLength(12)
+            .HasColumnType("NVARCHAR");
 
-        builder.Property(x => x.CreatedAt).HasDefaultValueSql("GETDATE()");
+        builder.Property(x => x.Note)
+            .HasColumnType("NTEXT");
+
+        builder.Property(x => x.CancellationReason)
+            .HasMaxLength(512)
+            .HasColumnType("NVARCHAR");
+
+        builder.Property(x => x.CreatedAt)
+            .HasDefaultValueSql("GETDATE()")
+            .ValueGeneratedOnAdd();
+
+        builder.Property(x => x.UpdatedAt)
+            .ValueGeneratedOnUpdate();
 
         builder.HasOne(x => x.Patient)
             .WithMany()
@@ -53,6 +74,5 @@ public class AppointmentConfiguration : IEntityTypeConfiguration<Appointment>
             .HasForeignKey(x => x.TreatmentServiceId)
             .OnDelete(DeleteBehavior.NoAction)
             .HasConstraintName("FK_Appointment_TreatmentService");
-
     }
 }

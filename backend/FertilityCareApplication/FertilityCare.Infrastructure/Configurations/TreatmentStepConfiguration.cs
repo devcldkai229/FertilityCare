@@ -26,14 +26,10 @@ public class TreatmentStepConfiguration : IEntityTypeConfiguration<TreatmentStep
 
         builder.Property(t => t.StepOrder).IsRequired();
 
-        builder.Property(t => t.IsOptional).HasDefaultValue(false);
-
-        builder.Property(t => t.IsActive).HasDefaultValue(true);
-
-        builder.HasOne<TreatmentService>()
+        builder.HasOne(x => x.TreatmentService)
             .WithMany(t => t.TreatmentSteps)
             .HasForeignKey(t => t.TreatmentServiceId)
-            .OnDelete(DeleteBehavior.NoAction)
+            .OnDelete(DeleteBehavior.Cascade)
             .HasConstraintName("FK_TreatmentStep_TreatmentService");
     }
 }

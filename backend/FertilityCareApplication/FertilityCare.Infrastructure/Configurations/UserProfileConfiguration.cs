@@ -25,12 +25,6 @@ public class UserProfileConfiguration : IEntityTypeConfiguration<UserProfile>
 
         builder.Property(x => x.MiddleName).HasColumnType("NVARCHAR(255)");
 
-        builder.Property(x => x.City).HasColumnType("NVARCHAR(255)");
-
-        builder.Property(x => x.Province).HasColumnType("NVARCHAR(255)");
-
-        builder.Property(x => x.Country).HasColumnType("NVARCHAR(255)");
-
         builder.Property(x => x.CreatedAt).HasDefaultValueSql("GETDATE()");
     }
 }

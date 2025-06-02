@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FertilityCare.Infrastructure.Identity;
-
-public class ApplicationUser : IdentityUser<Guid>
+namespace FertilityCare.Infrastructure.Identity
 {
-    public virtual UserProfile? UserProfile { get; set; }
-
+    public class ApplicationUser : IdentityUser<Guid>
+    {
+        public virtual UserProfile? UserProfile { get; set; }
+    }
 }

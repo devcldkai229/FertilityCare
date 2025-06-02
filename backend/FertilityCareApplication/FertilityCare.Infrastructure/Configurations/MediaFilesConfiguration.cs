@@ -31,8 +31,6 @@ public class MediaFilesConfiguration : IEntityTypeConfiguration<MediaFile>
 
         builder.Property(m => m.FileType).HasMaxLength(100);
 
-        builder.Property(m => m.MimeType).HasMaxLength(100);
-
         builder.Property(m => m.ResourceType).HasMaxLength(50);
 
         builder.Property(m => m.Format).HasMaxLength(50);
@@ -46,18 +44,6 @@ public class MediaFilesConfiguration : IEntityTypeConfiguration<MediaFile>
         builder.Property(m => m.Duration).HasColumnType("decimal(10,2)");
 
         builder.Property(m => m.Tags).HasColumnType("nvarchar(max)");
-
-        builder.Property(m => m.Context).HasColumnType("nvarchar(max)");
-
-        builder.Property(m => m.Transformation).HasColumnType("nvarchar(max)");
-
-        builder.Property(m => m.OwnerType).HasMaxLength(100);
-
-        builder.Property(m => m.RelatedEntityId).HasMaxLength(255).HasDefaultValue("#NoData");
-
-        builder.Property(m => m.RelatedEntityType).HasMaxLength(255).HasDefaultValue("#NoData");
-
-        builder.Property(m => m.IsPublic).HasDefaultValue(false);
 
         builder.Property(m => m.UploadedAt).HasDefaultValueSql("GETDATE()");
 

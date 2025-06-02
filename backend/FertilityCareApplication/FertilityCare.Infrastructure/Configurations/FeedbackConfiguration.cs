@@ -26,33 +26,38 @@ public class FeedbackConfiguration : IEntityTypeConfiguration<Feedback>
                .IsRequired();
 
         builder.Property(f => f.TreatmentQualityRating)
-               .HasColumnType("decimal(3,1)");
+               .HasColumnType("decimal(3,1)")
+               .IsRequired();
 
-        builder.Property(f => f.PrivacyRating)
-               .HasColumnType("decimal(3,1)");
+        builder.Property(f => f.Comment)
+               .HasColumnType("nvarchar(max)");
 
         builder.Property(f => f.IsDisplayed)
                .HasDefaultValue(false);
 
         builder.Property(f => f.CreatedAt)
+               .HasColumnType("datetime")
                .HasDefaultValueSql("GETDATE()");
 
-        builder.Property(f => f.Comment)
-               .HasColumnType("nvarchar(max)");
+        builder.Property(f => f.UpdatedAt)
+               .HasColumnType("datetime");
 
-        builder.HasOne(f => f.UserProfile)
+        builder.HasOne(f => f.Patient)
                .WithMany()
-               .HasForeignKey(f => f.UserProfileId)
-               .OnDelete(DeleteBehavior.NoAction);
+               .HasForeignKey(f => f.PatientId)
+               .OnDelete(DeleteBehavior.NoAction)
+               .HasConstraintName("FK_Feedback_Patient");
 
         builder.HasOne(f => f.Doctor)
                .WithMany()
                .HasForeignKey(f => f.DoctorId)
-               .OnDelete(DeleteBehavior.NoAction);
+               .OnDelete(DeleteBehavior.NoAction)
+               .HasConstraintName("FK_Feedback_Doctor");
 
-        builder.HasOne(f => f.ServicePackagePlan)
+        builder.HasOne(f => f.TreatmentPlan)
                .WithMany()
-               .HasForeignKey(f => f.ServicePackagePlanId)
-               .OnDelete(DeleteBehavior.NoAction);
+               .HasForeignKey(f => f.TreatmentPlanId)
+               .OnDelete(DeleteBehavior.NoAction)
+               .HasConstraintName("FK_Feedback_TreatmentPlan");
     }
 }

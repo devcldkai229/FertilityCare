@@ -14,5 +14,7 @@ public enum PaymentStatus
 
     Completed = 3,
 
-    Refunded = 4
+    Refunded = 4,
+
+    Failed = 5
 }

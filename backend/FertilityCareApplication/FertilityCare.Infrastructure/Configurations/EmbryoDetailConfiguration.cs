@@ -18,18 +18,38 @@ public class EmbryoDetailConfiguration : IEntityTypeConfiguration<EmbryoDetail>
 
         builder.HasKey(e => e.Id);
 
-        builder.Property(e => e.Id).HasDefaultValueSql("NEWID()");
+        builder.Property(e => e.Id)
+            .HasDefaultValueSql("NEWID()");
 
-        builder.Property(e => e.Grade).HasMaxLength(20).IsRequired();
+        builder.Property(e => e.Grade)
+            .IsRequired()
+            .HasMaxLength(20)
+            .HasColumnType("NVARCHAR");
 
-        builder.Property(e => e.IsViable).HasDefaultValue(true);
+        builder.Property(e => e.IsViable)
+            .IsRequired()
+            .HasDefaultValue(true);
 
-        builder.Property(e => e.CreatedAt).HasDefaultValueSql("GETDATE()");
+        builder.Property(e => e.Note)
+            .HasColumnType("NTEXT");
 
-        builder.HasOne<EmbryoFertilization>()
-               .WithMany()
-               .HasForeignKey(e => e.EmbryoFertilizationId)
-               .OnDelete(DeleteBehavior.NoAction)
-               .HasConstraintName("FK_EmbryoDetail_EmbryoFertilization");
+        builder.Property(e => e.CreatedAt)
+            .HasDefaultValueSql("GETDATE()")
+            .ValueGeneratedOnAdd();
+
+        builder.Property(e => e.UpdatedAt)
+            .ValueGeneratedOnUpdate();
+
+        builder.HasOne(e => e.EmbryoFertilization)
+            .WithMany()
+            .HasForeignKey(e => e.EmbryoFertilizationId)
+            .OnDelete(DeleteBehavior.NoAction)
+            .HasConstraintName("FK_EmbryoDetail_EmbryoFertilization");
+
+        builder.HasOne(e => e.TreatmentPlan)
+            .WithMany()
+            .HasForeignKey(e => e.TreatmentPlanId)
+            .OnDelete(DeleteBehavior.NoAction)
+            .HasConstraintName("FK_EmbryoDetail_TreatmentPlan");
     }
 }

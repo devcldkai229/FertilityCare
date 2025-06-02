@@ -12,17 +12,19 @@ public class PrescriptionItem
 
     public Guid PrescriptionId { get; set; }
 
-    public string MedicationName { get; set; }
+    public virtual Prescription Prescription { get; set; } 
 
-    public string? Dosage { get; set; }
+    public string MedicationName { get; set; } = "undefined";
 
-    public int? Quantity { get; set; }
+    public string Dosage { get; set; } = "";
 
-    public DateOnly StartDate { get; set; }
+    public int Quantity { get; set; }
+
+    public DateOnly StartDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 
     public DateOnly? EndDate { get; set; }
 
-    public string? SpecialInstructions { get; set; }
+    public string SpecialInstructions { get; set; } = "";
 
 
 }

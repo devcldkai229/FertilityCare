@@ -17,24 +17,42 @@ public class TreatmentServiceConfiguration : IEntityTypeConfiguration<TreatmentS
 
         builder.HasKey(t => t.Id);
 
-        builder.Property(t => t.Id).HasDefaultValueSql("NEWID()");
+        builder.Property(t => t.Id)
+               .HasDefaultValueSql("NEWID()");
 
-        builder.Property(t => t.Name).IsRequired().HasColumnType("NVARCHAR(MAX)");
+        builder.Property(t => t.Name)
+               .IsRequired()
+               .HasColumnType("NVARCHAR(MAX)");
 
-        builder.Property(t => t.Description).HasColumnType("NTEXT");
+        builder.Property(t => t.Description)
+               .HasColumnType("NTEXT");
 
-        builder.Property(t => t.BasicPrice).HasColumnType("DECIMAL(18,2)");
+        builder.Property(t => t.EstimatePrice)
+               .HasColumnType("DECIMAL(18,2)");
 
-        builder.Property(t => t.SuccessRate).HasColumnType("DECIMAL(5,2)");
+        builder.Property(t => t.Duration)
+               .HasColumnType("INT");
 
-        builder.Property(t => t.IsActive).HasDefaultValue(true);
+        builder.Property(t => t.SuccessRate)
+               .HasColumnType("DECIMAL(5,2)");
 
-        builder.Property(t => t.CreatedAt).HasDefaultValueSql("GETDATE()");
+        builder.Property(t => t.RecommendedFor)
+               .HasColumnType("NVARCHAR(MAX)");
 
-        builder.HasOne(t => t.TreamentCategory)
-            .WithMany()
-            .HasForeignKey(t => t.TreamentCategoryId)
-            .OnDelete(DeleteBehavior.NoAction)
-            .HasConstraintName("FK_TreatmentService_TreatmentCategory");
+        builder.Property(t => t.Contraindications)
+               .HasColumnType("NVARCHAR(MAX)");
+
+        builder.Property(t => t.CreatedAt)
+               .HasColumnType("DATETIME")
+               .HasDefaultValueSql("GETDATE()");
+
+        builder.Property(t => t.UpdatedAt)
+               .HasColumnType("DATETIME");
+
+        builder.HasOne(t => t.TreatmentCategory)
+               .WithMany()
+               .HasForeignKey(t => t.TreatmentCategoryId)
+               .OnDelete(DeleteBehavior.NoAction)
+               .HasConstraintName("FK_TreatmentService_TreatmentCategory");
     }
 }

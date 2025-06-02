@@ -11,15 +11,13 @@ public class Prescription
 {
     public Guid Id { get; set; }
 
-    public Guid? ServicePackagePlanId { get; set; }
+    public Guid TreatmentPlanId { get; set; }
 
-    public DateTime PrescriptionDate { get; set; }
+    public virtual TreatmentPlan TreatmentPlan { get; set; }
 
-    public DateTime? ExpiryDate { get; set; }
+    public DateTime PrescriptionDate { get; set; } = DateTime.Now;
 
-    public string? Note { get; set; }
-
-    public PrescriptionStatus Status { get; set; }
+    public string Note { get; set; } = "";
 
     public virtual List<PrescriptionItem> PrescriptionItems { get; set; }
 }

@@ -13,15 +13,17 @@ public class DoctorSchedule
 
     public Guid DoctorId { get; set; }
 
+    public virtual Doctor Doctor { get; set; }
+
     public DateOnly WorkDate { get; set; }
 
     public TimeOnly StartTime { get; set; }
 
     public TimeOnly EndTime { get; set; }
 
-    public bool IsAvailable { get; set; }
-
     public int? MaxAppointments { get; set; }
+
+    public bool IsAcceptingPatients { get; set; } = true;
 
     public string? Note { get; set; }
 

@@ -27,16 +27,12 @@ public class EggRetrievalCycleConfiguration : IEntityTypeConfiguration<EggRetrie
 
         builder.Property(e => e.AbnormalEggs).HasDefaultValue(0);
 
-        builder.HasOne(e => e.ServicePackagePlan)
+        builder.HasOne(e => e.TreatmentPlan)
                .WithMany()
-               .HasForeignKey(e => e.ServicePackagePlanId)
-               .OnDelete(DeleteBehavior.NoAction)
+               .HasForeignKey(e => e.TreatmentPlanId)
+               .OnDelete(DeleteBehavior.Cascade)
                .HasConstraintName("FK_EggRetrievalCycle_ServicePackagePlan");
 
-        builder.HasOne(e => e.Doctor)
-               .WithMany()
-               .HasForeignKey(e => e.DoctorId)
-               .OnDelete(DeleteBehavior.NoAction)
-               .HasConstraintName("FK_EggRetrievalCycle_Doctor");
+        
     }
 }
