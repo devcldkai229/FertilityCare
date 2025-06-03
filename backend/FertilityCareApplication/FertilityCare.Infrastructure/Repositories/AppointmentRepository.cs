@@ -1,6 +1,8 @@
 ﻿using FertilityCare.Domain.Entities;
 using FertilityCare.Infrastructure.Data;
+using FertilityCare.Shared.Exceptions;
 using FertilityCare.UseCase.Interfaces.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,57 +23,74 @@ namespace FertilityCare.Infrastructure.Repositories
         public async Task DeleteByIdAsync(Guid id)
         {
             var loadAppointment = await _context.Appointments.FindAsync(id);
-            if (loadAppointment == null) 
+            if (loadAppointment is null) 
             {
-                throw new Exception();
+                throw new NotFoundException($"Appointment id:{id} not exist!");
             }
             _context.Appointments.Remove(loadAppointment);
+            await _context.SaveChangesAsync();
 
         }
 
-        public Task<IEnumerable<Appointment>> FindAllAsync()
+        public async Task<IEnumerable<Appointment>> FindAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Appointments.ToListAsync();
         }
 
-        public Task<IEnumerable<Appointment>> FindAppointmentByDateRangeAsync(DateTime startDate, DateTime endDate)
+        public async Task<IEnumerable<Appointment>> FindAppointmentByDateRangeAsync(DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            return await _context.Appointments
+                .Where(x => x.AppointmentDate >= startDate && x.AppointmentDate <= endDate)
+                .ToListAsync();
         }
 
-        public Task<IEnumerable<Appointment>> FindAppointmentByDoctorIdAsync(Guid doctorId)
+        public async Task<IEnumerable<Appointment>> FindAppointmentByDoctorIdAsync(Guid doctorId)
         {
-            throw new NotImplementedException();
+            return await _context.Appointments.Where(x => x.DoctorId.Equals(doctorId)).ToListAsync();
         }
 
-        public Task<IEnumerable<Appointment>> FindAppointmentByPatientIdAsync(Guid patientId)
+        public async Task<IEnumerable<Appointment>> FindAppointmentByPatientIdAsync(Guid patientId)
         {
-            throw new NotImplementedException();
+            return await _context.Appointments.Where(x => x.PatientId.Equals(patientId)).ToListAsync();
         }
 
-        public Task<Appointment> FindByIdAsync(Guid id)
+        public async Task<Appointment> FindByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var loadAppointment = await _context.Appointments.FindAsync(id);
+            if(loadAppointment is null)
+            {
+                throw new NotFoundException($"Appointment id:{id} not exist!");
+            }
+            return loadAppointment;
         }
 
-        public Task<IEnumerable<Appointment>> GetTodayAppointmentsAsync(Guid doctorId)
+        public async Task<IEnumerable<Appointment>> GetTodayAppointmentsAsync(Guid doctorId)
         {
-            throw new NotImplementedException();
+            return await _context.Appointments.Where(a => a.DoctorId == doctorId && a.AppointmentDate.Date == DateTime.Today).ToListAsync();
         }
 
-        public Task<bool> IsExistAsync(Guid id)
+        public async Task<bool> IsExistAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var loadAppointment = await _context.Appointments.FindAsync(id);
+            if (loadAppointment is null)
+            {
+                return false;
+            }
+            return true;
         }
 
-        public Task<Appointment> SaveAsync(Appointment entity)
+        public async Task<Appointment> SaveAsync(Appointment entity)
         {
-            throw new NotImplementedException();
+            _context.Appointments.Add(entity);
+            await _context.SaveChangesAsync();
+            return entity;
         }
 
-        public Task<Appointment> UpdateAsync(Appointment entity)
+        public async Task<Appointment> UpdateAsync(Appointment entity)
         {
-            throw new NotImplementedException();
+            _context.Appointments.Update(entity);
+            await _context.SaveChangesAsync();
+            return entity;
         }
     }
 }
