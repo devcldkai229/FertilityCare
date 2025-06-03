@@ -87,6 +87,8 @@ namespace FertilityCare.Infrastructure.Data
 
         public DbSet<EmbryoDetail> EmbryoDetails { get; set; }
 
+        public DbSet<MedicalExamination> MedicalExaminations { get; set; }
+        public DbSet<EmbryoTransfer> EmbryoTransfers { get; set; }
         public DbSet<FrozenEmbryoStorage> FrozenEmbryoStorages { get; set; }
     }
 }
