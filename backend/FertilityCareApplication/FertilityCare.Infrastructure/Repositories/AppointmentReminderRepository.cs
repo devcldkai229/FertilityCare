@@ -45,7 +45,7 @@ namespace FertilityCare.Infrastructure.Repositories
             var loadedReminder = await _context.AppointmentReminders.FindAsync(id);
             if(loadedReminder is null)
             {
-                throw new NotFoundException($"AppoinmentRemider id:{id} not exist!")
+                throw new NotFoundException($"AppoinmentRemider id:{id} not exist!");
             }
             return loadedReminder;
         }
