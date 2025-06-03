@@ -55,6 +55,8 @@ namespace FertilityCare.Infrastructure.Data
 
         public DbSet<Appointment> Appointments { get; set; }
 
+        public DbSet<MedicalExamination> MedicalExaminations { get; set; }
+
         public DbSet<TreatmentPlan> TreatmentPlans { get; set; }
 
         public DbSet<TreatmentPlanStep> TreatmentPlanSteps { get; set; }
@@ -80,6 +82,8 @@ namespace FertilityCare.Infrastructure.Data
         public DbSet<EggRetrievalCycle> EggRetrievalCycles { get; set; }
 
         public DbSet<EmbryoFertilization> EmbryoFertilizations { get; set; }
+
+        public DbSet<EmbryoTransfer> EmbryoTransfers { get; set; }
 
         public DbSet<EmbryoDetail> EmbryoDetails { get; set; }
 
