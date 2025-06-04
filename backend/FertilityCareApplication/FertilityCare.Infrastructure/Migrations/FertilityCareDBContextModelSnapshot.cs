@@ -658,6 +658,44 @@ namespace FertilityCare.Infrastructure.Migrations
                     b.ToTable("MediaFile", (string)null);
                 });
 
+            modelBuilder.Entity("FertilityCare.Domain.Entities.MedicalExamination", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1000L);
+
+                    b.Property<Guid>("AppointmentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Diagnosis")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("NVARCHAR(MAX)")
+                        .HasDefaultValue("");
+
+                    b.Property<string>("Indications")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("NVARCHAR(MAX)")
+                        .HasDefaultValue("");
+
+                    b.Property<string>("Note")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("NVARCHAR(MAX)")
+                        .HasDefaultValue("");
+
+                    b.Property<string>("Symptoms")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("NVARCHAR(MAX)")
+                        .HasDefaultValue("");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppointmentId");
+
+                    b.ToTable("MedicalExamination", (string)null);
+                });
+
             modelBuilder.Entity("FertilityCare.Domain.Entities.Patient", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1598,6 +1636,18 @@ namespace FertilityCare.Infrastructure.Migrations
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .HasConstraintName("FK_MediaFile_UserProfile");
+                });
+
+            modelBuilder.Entity("FertilityCare.Domain.Entities.MedicalExamination", b =>
+                {
+                    b.HasOne("FertilityCare.Domain.Entities.Appointment", "Appointment")
+                        .WithMany()
+                        .HasForeignKey("AppointmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_MedicalExamination_Appointment");
+
+                    b.Navigation("Appointment");
                 });
 
             modelBuilder.Entity("FertilityCare.Domain.Entities.Patient", b =>

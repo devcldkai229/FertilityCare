@@ -657,6 +657,29 @@ namespace FertilityCare.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MedicalExamination",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1000, 1"),
+                    AppointmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Symptoms = table.Column<string>(type: "NVARCHAR(MAX)", nullable: true, defaultValue: ""),
+                    Diagnosis = table.Column<string>(type: "NVARCHAR(MAX)", nullable: true, defaultValue: ""),
+                    Indications = table.Column<string>(type: "NVARCHAR(MAX)", nullable: true, defaultValue: ""),
+                    Note = table.Column<string>(type: "NVARCHAR(MAX)", nullable: true, defaultValue: "")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MedicalExamination", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MedicalExamination_Appointment",
+                        column: x => x.AppointmentId,
+                        principalTable: "Appointment",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "EmbryoFertilization",
                 columns: table => new
                 {
@@ -1003,6 +1026,11 @@ namespace FertilityCare.Infrastructure.Migrations
                 column: "OwnerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MedicalExamination_AppointmentId",
+                table: "MedicalExamination",
+                column: "AppointmentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Patient_PatientParnerId",
                 table: "Patient",
                 column: "PatientParnerId",
@@ -1123,6 +1151,9 @@ namespace FertilityCare.Infrastructure.Migrations
                 name: "MediaFile");
 
             migrationBuilder.DropTable(
+                name: "MedicalExamination");
+
+            migrationBuilder.DropTable(
                 name: "PrescriptionItem");
 
             migrationBuilder.DropTable(
@@ -1130,9 +1161,6 @@ namespace FertilityCare.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "TreatmentPayment");
-
-            migrationBuilder.DropTable(
-                name: "Appointment");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -1144,6 +1172,9 @@ namespace FertilityCare.Infrastructure.Migrations
                 name: "EmbryoDetail");
 
             migrationBuilder.DropTable(
+                name: "Appointment");
+
+            migrationBuilder.DropTable(
                 name: "Prescription");
 
             migrationBuilder.DropTable(
@@ -1153,10 +1184,10 @@ namespace FertilityCare.Infrastructure.Migrations
                 name: "TreatmentPlanStep");
 
             migrationBuilder.DropTable(
-                name: "DoctorSchedule");
+                name: "EmbryoFertilization");
 
             migrationBuilder.DropTable(
-                name: "EmbryoFertilization");
+                name: "DoctorSchedule");
 
             migrationBuilder.DropTable(
                 name: "TreatmentStep");
